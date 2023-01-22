@@ -1,11 +1,5 @@
 package models
 
-import (
-	"log"
-
-	"gorm.io/gorm"
-)
-
 type Comment struct {
 	Id     int    `json:"id" gorm:"<-"`
 	PostId int    `json:"postId" gorm:"<-"`
@@ -14,13 +8,7 @@ type Comment struct {
 	Body   string `json:"body" gorm:"<-"`
 }
 
-type CommentRepository struct {
-	gorm *gorm.DB
-}
-
-func (cr *CommentRepository) Create(comment Comment) {
-	result := cr.gorm.Create(&comment)
-	if result.Error != nil {
-		log.Println(result.Error)
-	}
+type CommentRepository interface {
+	FindByID(ID int) (*Comment, error)
+	Save(comment Comment) error
 }
