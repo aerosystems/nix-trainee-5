@@ -3,30 +3,28 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"strconv"
 
-	"github.com/aerosystems/nix-trainee-4/internal/models"
+	"github.com/go-chi/chi/v5"
 )
 
 func (h *BaseHandler) GetComment(w http.ResponseWriter, r *http.Request) {
-	type responseData struct {
-		status string
-		result models.Comment
+	stringID := chi.URLParam(r, "id")
+
+	ID, err := strconv.Atoi(stringID)
+	if err != nil {
+		_ = errorJSON(w, err, http.StatusBadRequest)
 	}
 
-	comment, err := h.commentRepo.FindByID(301)
+	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
 		log.Println(err)
-	}
-
-	result := responseData{
-		status: "OK",
-		result: *comment,
 	}
 
 	payload := jsonResponse{
 		Error:   false,
 		Message: "...",
-		Data:    result,
+		Data:    comment,
 	}
 	_ = writeJSON(w, http.StatusOK, payload)
 }

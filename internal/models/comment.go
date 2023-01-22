@@ -10,5 +10,5 @@ type Comment struct {
 
 type CommentRepository interface {
 	FindByID(ID int) (*Comment, error)
-	Save(comment Comment) error
+	Save(comment *Comment) error
 }

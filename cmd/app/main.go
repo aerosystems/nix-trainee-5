@@ -1,27 +1,38 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"log"
 	"net/http"
-	"os"
 
 	"github.com/aerosystems/nix-trainee-4/internal/handlers"
 	"github.com/aerosystems/nix-trainee-4/internal/storage"
 	"github.com/aerosystems/nix-trainee-4/pkg/mysql/mygorm"
 )
 
+const webPort = 8080
+
+type Config struct {
+	BaseHandler *handlers.BaseHandler
+}
+
 func main() {
+
 	clientGORM := mygorm.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
-	_ = handlers.NewBaseHandler(commentRepo)
-
-	err := http.ListenAndServe(":8080", nil)
-	if errors.Is(err, http.ErrServerClosed) {
-		fmt.Printf("server closed\n")
-	} else if err != nil {
-		fmt.Printf("error starting server: %s\n", err)
-		os.Exit(1)
+	app := Config{
+		BaseHandler: handlers.NewBaseHandler(commentRepo),
 	}
 
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%d", webPort),
+		Handler: app.routes(),
+	}
+
+	log.Printf("Starting service on port %d\n", webPort)
+	err := srv.ListenAndServe()
+
+	if err != nil {
+		log.Panic(err)
+	}
 }
