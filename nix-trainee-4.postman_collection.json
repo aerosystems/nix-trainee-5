@@ -7,6 +7,25 @@
 	},
 	"item": [
 		{
+			"name": "/comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/comments/{id}",
 			"request": {
 				"method": "GET",

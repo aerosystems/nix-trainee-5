@@ -8,6 +8,20 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+func (h *BaseHandler) GetComments(w http.ResponseWriter, r *http.Request) {
+	comments, err := h.commentRepo.FindAll()
+	if err != nil {
+		log.Println(err)
+	}
+
+	payload := jsonResponse{
+		Error:   false,
+		Message: "...",
+		Data:    comments,
+	}
+	_ = writeJSON(w, http.StatusOK, payload)
+}
+
 func (h *BaseHandler) GetComment(w http.ResponseWriter, r *http.Request) {
 	stringID := chi.URLParam(r, "id")
 

@@ -15,6 +15,12 @@ func NewCommentRepo(db *gorm.DB) *commentRepo {
 	}
 }
 
+func (r *commentRepo) FindAll() (*[]models.Comment, error) {
+	var comments []models.Comment
+	r.db.Find(&comments)
+	return &comments, nil
+}
+
 func (r *commentRepo) FindByID(ID int) (*models.Comment, error) {
 	var comment models.Comment
 	r.db.Find(&comment, ID)

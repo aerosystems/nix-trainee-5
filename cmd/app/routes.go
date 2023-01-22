@@ -22,6 +22,7 @@ func (app *Config) routes() http.Handler {
 	}))
 	mux.Use(middleware.Heartbeat("/ping"))
 
+	mux.Get("/v1/comments", app.BaseHandler.GetComments)
 	mux.Get("/v1/comments/{id}", app.BaseHandler.GetComment)
 
 	return mux

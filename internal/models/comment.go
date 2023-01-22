@@ -9,6 +9,7 @@ type Comment struct {
 }
 
 type CommentRepository interface {
+	FindAll() (*[]Comment, error)
 	FindByID(ID int) (*Comment, error)
 	Save(comment *Comment) error
 }

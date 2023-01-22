@@ -17,7 +17,6 @@ type Config struct {
 }
 
 func main() {
-
 	clientGORM := mygorm.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
 	app := Config{
