@@ -11,6 +11,7 @@ import (
 
 type BaseHandler struct {
 	commentRepo models.CommentRepository
+	postRepo    models.PostRepository
 }
 
 // jsonResponse is the type used for sending JSON around
@@ -20,9 +21,10 @@ type jsonResponse struct {
 	Data    any    `json:"data,omitempty"`
 }
 
-func NewBaseHandler(commentRepo models.CommentRepository) *BaseHandler {
+func NewBaseHandler(commentRepo models.CommentRepository, postRepo models.PostRepository) *BaseHandler {
 	return &BaseHandler{
 		commentRepo: commentRepo,
+		postRepo:    postRepo,
 	}
 }
 

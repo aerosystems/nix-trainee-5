@@ -28,6 +28,11 @@ func (app *Config) routes() http.Handler {
 	mux.Post("/v1/comments/{id}", app.BaseHandler.CreateComment)
 	mux.Patch("/v1/comments/{id}", app.BaseHandler.UpdateComment)
 	mux.Delete("/v1/comments/{id}", app.BaseHandler.DeleteComment)
+	mux.Get("/v1/posts", app.BaseHandler.ReadPosts)
+	mux.Get("/v1/posts/{id}", app.BaseHandler.ReadPost)
+	mux.Post("/v1/posts/{id}", app.BaseHandler.CreatePost)
+	mux.Patch("/v1/posts/{id}", app.BaseHandler.UpdatePost)
+	mux.Delete("/v1/posts/{id}", app.BaseHandler.DeletePost)
 
 	return mux
 }

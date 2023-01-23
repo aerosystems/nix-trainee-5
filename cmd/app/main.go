@@ -19,8 +19,10 @@ type Config struct {
 func main() {
 	clientGORM := mygorm.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
+	postRepo := storage.NewPostRepo(clientGORM)
+
 	app := Config{
-		BaseHandler: handlers.NewBaseHandler(commentRepo),
+		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo),
 	}
 
 	srv := &http.Server{
