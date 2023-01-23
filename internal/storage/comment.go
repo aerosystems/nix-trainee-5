@@ -27,8 +27,24 @@ func (r *commentRepo) FindByID(ID int) (*models.Comment, error) {
 	return &comment, nil
 }
 
-func (r *commentRepo) Save(comment *models.Comment) error {
+func (r *commentRepo) Create(comment *models.Comment) error {
 	result := r.db.Create(&comment)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func (r *commentRepo) Update(comment *models.Comment) error {
+	result := r.db.Save(&comment)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func (r *commentRepo) Delete(comment *models.Comment) error {
+	result := r.db.Delete(&comment)
 	if result.Error != nil {
 		return result.Error
 	}

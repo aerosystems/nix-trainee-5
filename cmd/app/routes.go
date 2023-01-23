@@ -20,10 +20,14 @@ func (app *Config) routes() http.Handler {
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
+	
 	mux.Use(middleware.Heartbeat("/ping"))
 
-	mux.Get("/v1/comments", app.BaseHandler.GetComments)
-	mux.Get("/v1/comments/{id}", app.BaseHandler.GetComment)
+	mux.Get("/v1/comments", app.BaseHandler.ReadComments)
+	mux.Get("/v1/comments/{id}", app.BaseHandler.ReadComment)
+	mux.Post("/v1/comments/{id}", app.BaseHandler.CreateComment)
+	mux.Patch("/v1/comments/{id}", app.BaseHandler.UpdateComment)
+	mux.Delete("/v1/comments/{id}", app.BaseHandler.DeleteComment)
 
 	return mux
 }

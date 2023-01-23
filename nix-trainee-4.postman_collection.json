@@ -31,6 +31,84 @@
 				"method": "GET",
 				"header": [],
 				"url": {
+					"raw": "localhost:8080/v1/comments/301",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"comments",
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/comments/{id}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"postId\": 61,\n        \"name\": \"excepturi itaque laudantium reiciendis dolorem\",\n        \"email\": \"Gregory.Kutch@shawn.info\",\n        \"body\": \"sit nesciunt id vitae ut itaque sapiente\\nneque in at consequuntur perspiciatis dicta consequatur velit\\nfacilis iste ut error sed\\nin sequi expedita autem\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/comments/301",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"comments",
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/comments/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"postId\": 777,\n        \"name\": \"excepturi itaque laudantium reiciendis dolorem\",\n        \"email\": \"Gregory.Kutch@shawn.info\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/comments/301",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"comments",
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/comments/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
 					"raw": "localhost:8080/comments",
 					"host": [
 						"localhost"
