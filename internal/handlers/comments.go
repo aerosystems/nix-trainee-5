@@ -17,7 +17,7 @@ func (h *BaseHandler) ReadComments(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(*comments) == 0 {
-		_ = errorJSON(w, errors.New("comments do not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("comments do not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -26,7 +26,7 @@ func (h *BaseHandler) ReadComments(w http.ResponseWriter, r *http.Request) {
 		Message: "all comments with ID were found successfully",
 		Data:    comments,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +34,7 @@ func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
@@ -43,7 +43,7 @@ func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = errorJSON(w, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -52,7 +52,7 @@ func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was found successfully",
 		Data:    comment,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
@@ -60,7 +60,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	var requestPayload struct {
@@ -72,7 +72,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 
 	err = readJSON(w, r, &requestPayload)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
 	}
 
@@ -82,7 +82,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *comment != (models.Comment{}) {
-		_ = errorJSON(w, errors.New("comment with ID "+stringID+" exists"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("comment with ID "+stringID+" exists"), http.StatusNotFound)
 		return
 	}
 
@@ -104,7 +104,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was created successfully",
 		Data:    newComment,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
@@ -112,7 +112,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	var requestPayload struct {
@@ -124,7 +124,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 
 	err = readJSON(w, r, &requestPayload)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
 	}
 
@@ -134,7 +134,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = errorJSON(w, errors.New("comment with ID "+stringID+"does not exists"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("comment with ID "+stringID+"does not exists"), http.StatusNotFound)
 		return
 	}
 
@@ -164,7 +164,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was updated successfully",
 		Data:    nil,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
@@ -172,7 +172,7 @@ func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
@@ -181,7 +181,7 @@ func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = errorJSON(w, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -195,5 +195,5 @@ func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was deleted successfully",
 		Data:    nil,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }

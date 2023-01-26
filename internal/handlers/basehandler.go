@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"io"
 	"net/http"
@@ -28,11 +29,23 @@ func NewBaseHandler(commentRepo models.CommentRepository, postRepo models.PostRe
 	}
 }
 
-// writeJSON takes a response status code and arbitrary data and writes a json response to the client
-func writeJSON(w http.ResponseWriter, status int, data any, headers ...http.Header) error {
-	out, err := json.Marshal(data)
-	if err != nil {
-		return err
+// writeResponse takes a response status code and arbitrary data and writes a xml/json response to the client in depends of Header Accept
+func writeResponse(w http.ResponseWriter, r *http.Request, status int, data any, headers ...http.Header) error {
+	var out []byte
+	var err error
+	switch r.Header.Get("Accept") {
+	case "application/xml":
+		out, err = xml.MarshalIndent(data, "", " ")
+		if err != nil {
+			return err
+		}
+		w.Header().Set("Content-Type", "application/xml")
+	default:
+		out, err = json.Marshal(data)
+		if err != nil {
+			return err
+		}
+		w.Header().Set("Content-Type", "application/json")
 	}
 
 	if len(headers) > 0 {
@@ -41,7 +54,6 @@ func writeJSON(w http.ResponseWriter, status int, data any, headers ...http.Head
 		}
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	_, err = w.Write(out)
 	if err != nil {
@@ -52,8 +64,8 @@ func writeJSON(w http.ResponseWriter, status int, data any, headers ...http.Head
 }
 
 // errorJSON takes an error, and optionally a response status code, and generates and sends
-// a json error response
-func errorJSON(w http.ResponseWriter, err error, status ...int) error {
+// a xml/json response to the client in depends of Header Accept
+func writeError(w http.ResponseWriter, r *http.Request, err error, status ...int) error {
 	statusCode := http.StatusBadRequest
 
 	if len(status) > 0 {
@@ -64,7 +76,7 @@ func errorJSON(w http.ResponseWriter, err error, status ...int) error {
 	payload.Error = true
 	payload.Message = err.Error()
 
-	return writeJSON(w, statusCode, payload)
+	return writeResponse(w, r, statusCode, payload)
 }
 
 // readJSON tries to read the body of a request and converts it into JSON

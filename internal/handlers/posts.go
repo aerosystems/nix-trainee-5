@@ -17,7 +17,7 @@ func (h *BaseHandler) ReadPosts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(*posts) == 0 {
-		_ = errorJSON(w, errors.New("posts do not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("posts do not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -26,7 +26,7 @@ func (h *BaseHandler) ReadPosts(w http.ResponseWriter, r *http.Request) {
 		Message: "all posts with ID were found successfully",
 		Data:    posts,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +34,7 @@ func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	post, err := h.postRepo.FindByID(ID)
@@ -43,7 +43,7 @@ func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *post == (models.Post{}) {
-		_ = errorJSON(w, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -52,7 +52,7 @@ func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was found successfully",
 		Data:    post,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
@@ -60,7 +60,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	var requestPayload struct {
@@ -71,7 +71,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	err = readJSON(w, r, &requestPayload)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
 	}
 
@@ -81,7 +81,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *post != (models.Post{}) {
-		_ = errorJSON(w, errors.New("post with ID "+stringID+" exists"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("post with ID "+stringID+" exists"), http.StatusNotFound)
 		return
 	}
 
@@ -102,7 +102,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was created successfully",
 		Data:    newPost,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
@@ -110,7 +110,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	var requestPayload struct {
@@ -121,7 +121,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 
 	err = readJSON(w, r, &requestPayload)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
 	}
 
@@ -131,7 +131,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *post == (models.Post{}) {
-		_ = errorJSON(w, errors.New("post with ID "+stringID+"does not exists"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("post with ID "+stringID+"does not exists"), http.StatusNotFound)
 		return
 	}
 
@@ -158,7 +158,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was updated successfully",
 		Data:    nil,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
@@ -166,7 +166,7 @@ func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = errorJSON(w, err, http.StatusBadRequest)
+		_ = writeError(w, r, err, http.StatusBadRequest)
 	}
 
 	post, err := h.postRepo.FindByID(ID)
@@ -175,7 +175,7 @@ func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if *post == (models.Post{}) {
-		_ = errorJSON(w, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
+		_ = writeError(w, r, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
 		return
 	}
 
@@ -189,5 +189,5 @@ func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was deleted successfully",
 		Data:    nil,
 	}
-	_ = writeJSON(w, http.StatusOK, payload)
+	_ = writeResponse(w, r, http.StatusOK, payload)
 }
