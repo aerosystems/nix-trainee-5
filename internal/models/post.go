@@ -1,10 +1,10 @@
 package models
 
 type Post struct {
-	ID     int    `json:"id" gorm:"<-"`
-	UserID int    `json:"userId" gorm:"<-"`
-	Title  string `json:"title" gorm:"<-"`
-	Body   string `json:"body" gorm:"<-"`
+	ID     int    `json:"id" xml:"id" gorm:"<-"`
+	UserID int    `json:"userId" xml:"userId" gorm:"<-"`
+	Title  string `json:"title" xml:"title" gorm:"<-"`
+	Body   string `json:"body" xml:"body" gorm:"<-"`
 }
 
 type PostRepository interface {

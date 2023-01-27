@@ -15,8 +15,8 @@ type BaseHandler struct {
 	postRepo    models.PostRepository
 }
 
-// jsonResponse is the type used for sending JSON around
-type jsonResponse struct {
+// Response is the type used for sending JSON around
+type Response struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 	Data    any    `json:"data,omitempty"`
@@ -72,28 +72,37 @@ func writeError(w http.ResponseWriter, r *http.Request, err error, status ...int
 		statusCode = status[0]
 	}
 
-	var payload jsonResponse
+	var payload Response
 	payload.Error = true
 	payload.Message = err.Error()
 
 	return writeResponse(w, r, statusCode, payload)
 }
 
-// readJSON tries to read the body of a request and converts it into JSON
-func readJSON(w http.ResponseWriter, r *http.Request, data any) error {
+// readRequest tries to read the body of a request and converts it into JSON/XML in depends of Header Accept
+func readRequest(w http.ResponseWriter, r *http.Request, data any) error {
 	maxBytes := 1048576 // one megabyte
 	r.Body = http.MaxBytesReader(w, r.Body, int64(maxBytes))
 
-	dec := json.NewDecoder(r.Body)
-	err := dec.Decode(data)
-	if err != nil {
-		return err
+	switch r.Header.Get("Content-Type") {
+	case "application/xml":
+		body, _ := io.ReadAll(r.Body)
+		err := xml.Unmarshal(body, data)
+		if err != nil {
+			return err
+		}
+	case "application/json":
+		dec := json.NewDecoder(r.Body)
+		err := dec.Decode(data)
+		if err != nil {
+			return err
+		}
+		err = dec.Decode(&struct{}{})
+		if err != io.EOF {
+			return errors.New("body must have only a single json value")
+		}
+	default:
+		return errors.New("unknown Content-Type. Supported types are application/xml and application/json")
 	}
-
-	err = dec.Decode(&struct{}{})
-	if err != io.EOF {
-		return errors.New("body must have only a single json value")
-	}
-
 	return nil
 }

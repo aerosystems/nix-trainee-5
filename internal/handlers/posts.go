@@ -21,7 +21,7 @@ func (h *BaseHandler) ReadPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "all posts with ID were found successfully",
 		Data:    posts,
@@ -47,7 +47,7 @@ func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "post with ID " + stringID + " was found successfully",
 		Data:    post,
@@ -64,12 +64,12 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var requestPayload struct {
-		UserID int    `json:"userId"`
-		Title  string `json:"title"`
-		Body   string `json:"body"`
+		UserID int    `json:"userId" xml:"userId"`
+		Title  string `json:"title" xml:"title"`
+		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readJSON(w, r, &requestPayload)
+	err = readRequest(w, r, &requestPayload)
 	if err != nil {
 		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
@@ -97,7 +97,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "post with ID " + stringID + " was created successfully",
 		Data:    newPost,
@@ -114,12 +114,12 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var requestPayload struct {
-		UserID int    `json:"userId"`
-		Title  string `json:"title"`
-		Body   string `json:"body"`
+		UserID int    `json:"userId" xml:"userId"`
+		Title  string `json:"title" xml:"title"`
+		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readJSON(w, r, &requestPayload)
+	err = readRequest(w, r, &requestPayload)
 	if err != nil {
 		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
@@ -153,7 +153,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "post with ID " + stringID + " was updated successfully",
 		Data:    nil,
@@ -184,7 +184,7 @@ func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "post with ID " + stringID + " was deleted successfully",
 		Data:    nil,

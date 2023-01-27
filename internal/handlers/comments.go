@@ -21,7 +21,7 @@ func (h *BaseHandler) ReadComments(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "all comments with ID were found successfully",
 		Data:    comments,
@@ -47,7 +47,7 @@ func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "comment with ID " + stringID + " was found successfully",
 		Data:    comment,
@@ -64,13 +64,13 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var requestPayload struct {
-		PostID int    `json:"postId"`
-		Name   string `json:"name"`
-		Email  string `json:"email"`
-		Body   string `json:"body"`
+		PostID int    `json:"postId" xml:"postId"`
+		Name   string `json:"name" xml:"name"`
+		Email  string `json:"email" xml:"email"`
+		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readJSON(w, r, &requestPayload)
+	err = readRequest(w, r, &requestPayload)
 	if err != nil {
 		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
@@ -99,7 +99,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "comment with ID " + stringID + " was created successfully",
 		Data:    newComment,
@@ -116,13 +116,13 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var requestPayload struct {
-		PostID int    `json:"postId"`
-		Name   string `json:"name"`
-		Email  string `json:"email"`
-		Body   string `json:"body"`
+		PostID int    `json:"postId" xml:"postId"`
+		Name   string `json:"name" xml:"name"`
+		Email  string `json:"email" xml:"email"`
+		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readJSON(w, r, &requestPayload)
+	err = readRequest(w, r, &requestPayload)
 	if err != nil {
 		_ = writeError(w, r, err, http.StatusBadRequest)
 		return
@@ -159,7 +159,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "comment with ID " + stringID + " was updated successfully",
 		Data:    nil,
@@ -190,7 +190,7 @@ func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	payload := jsonResponse{
+	payload := Response{
 		Error:   false,
 		Message: "comment with ID " + stringID + " was deleted successfully",
 		Data:    nil,
