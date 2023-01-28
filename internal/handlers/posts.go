@@ -2,23 +2,22 @@ package handlers
 
 import (
 	"errors"
-	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
-	"github.com/go-chi/chi/v5"
+	"github.com/labstack/echo/v4"
 )
 
-func (h *BaseHandler) ReadPosts(w http.ResponseWriter, r *http.Request) {
+func (h *BaseHandler) ReadPosts(c echo.Context) error {
 	posts, err := h.postRepo.FindAll()
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if len(*posts) == 0 {
-		_ = writeError(w, r, errors.New("posts do not exist"), http.StatusNotFound)
-		return
+		err := errors.New("posts do not exist")
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	payload := Response{
@@ -26,25 +25,25 @@ func (h *BaseHandler) ReadPosts(w http.ResponseWriter, r *http.Request) {
 		Message: "all posts with ID were found successfully",
 		Data:    posts,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) ReadPost(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *post == (models.Post{}) {
-		_ = writeError(w, r, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
-		return
+		err := errors.New("post with ID " + stringID + " does not exist")
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	payload := Response{
@@ -52,15 +51,15 @@ func (h *BaseHandler) ReadPost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was found successfully",
 		Data:    post,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) CreatePost(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	var requestPayload struct {
@@ -69,20 +68,18 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readRequest(w, r, &requestPayload)
-	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
-		return
+	if err = c.Bind(&requestPayload); err != nil {
+		return WriteResponse(c, http.StatusBadRequest, err)
 	}
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *post != (models.Post{}) {
-		_ = writeError(w, r, errors.New("post with ID "+stringID+" exists"), http.StatusNotFound)
-		return
+		err := errors.New("post with ID " + stringID + " exists")
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	newPost := models.Post{
@@ -94,7 +91,7 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	err = h.postRepo.Create(&newPost)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
@@ -102,15 +99,15 @@ func (h *BaseHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was created successfully",
 		Data:    newPost,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) UpdatePost(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	var requestPayload struct {
@@ -119,20 +116,18 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 		Body   string `json:"body" xml:"body"`
 	}
 
-	err = readRequest(w, r, &requestPayload)
-	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
-		return
+	if err = c.Bind(&requestPayload); err != nil {
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *post == (models.Post{}) {
-		_ = writeError(w, r, errors.New("post with ID "+stringID+"does not exists"), http.StatusNotFound)
-		return
+		err := errors.New("post with ID " + stringID + "does not exists")
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	newPost := post
@@ -150,7 +145,7 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 
 	err = h.postRepo.Update(newPost)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
@@ -158,36 +153,35 @@ func (h *BaseHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 		Message: "post with ID " + stringID + " was updated successfully",
 		Data:    nil,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) DeletePost(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *post == (models.Post{}) {
-		_ = writeError(w, r, errors.New("post with ID "+stringID+" does not exist"), http.StatusNotFound)
-		return
+		err := errors.New("post with ID " + stringID + " does not exist")
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	err = h.postRepo.Delete(post)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
 		Error:   false,
 		Message: "post with ID " + stringID + " was deleted successfully",
-		Data:    nil,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }

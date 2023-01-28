@@ -3,8 +3,6 @@ module github.com/aerosystems/nix-trainee-5-6-7-8
 go 1.19
 
 require (
-	github.com/go-chi/chi/v5 v5.0.8
-	github.com/go-chi/cors v1.2.1
 	github.com/labstack/echo/v4 v4.10.0
 	gorm.io/driver/mysql v1.4.5
 	gorm.io/gorm v1.24.3

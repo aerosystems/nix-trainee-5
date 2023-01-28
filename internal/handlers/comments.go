@@ -17,7 +17,7 @@ func (h *BaseHandler) ReadComments(c echo.Context) error {
 
 	if len(*comments) == 0 {
 		err := errors.New("comments do not exist")
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	payload := Response{
@@ -25,7 +25,7 @@ func (h *BaseHandler) ReadComments(c echo.Context) error {
 		Message: "all comments with ID were found successfully",
 		Data:    comments,
 	}
-	return MakeResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) ReadComment(c echo.Context) error {
@@ -33,17 +33,17 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	if *comment == (models.Comment{}) {
 		err := errors.New("comment with ID " + stringID + " does not exist")
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	payload := Response{
@@ -51,7 +51,7 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 		Message: "comment with ID " + stringID + " was found successfully",
 		Data:    comment,
 	}
-	return MakeResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) CreateComment(c echo.Context) error {
@@ -59,13 +59,13 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	requestPayload := new(models.Comment)
 
 	if err = c.Bind(&requestPayload); err != nil {
-		return MakeResponse(c, http.StatusBadRequest, NewError(err))
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
@@ -75,7 +75,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 
 	if *comment != (models.Comment{}) {
 		err := errors.New("comment with ID " + stringID + " exists")
-		return MakeResponse(c, http.StatusBadRequest, NewError(err))
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	newComment := models.Comment{
@@ -97,7 +97,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 		Data:    newComment,
 	}
 
-	return MakeResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) UpdateComment(c echo.Context) error {
@@ -105,13 +105,13 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	requestPayload := new(models.Comment)
 
 	if err = c.Bind(&requestPayload); err != nil {
-		return MakeResponse(c, http.StatusBadRequest, NewError(err))
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
@@ -121,7 +121,7 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 
 	if *comment == (models.Comment{}) {
 		err := errors.New("comment with ID " + stringID + "does not exists")
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	newComment := comment
@@ -150,7 +150,7 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 		Message: "comment with ID " + stringID + " was updated successfully",
 		Data:    nil,
 	}
-	return MakeResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
 
 func (h *BaseHandler) DeleteComment(c echo.Context) error {
@@ -158,7 +158,7 @@ func (h *BaseHandler) DeleteComment(c echo.Context) error {
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		return MakeResponse(c, http.StatusBadRequest, NewError(err))
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
@@ -168,7 +168,7 @@ func (h *BaseHandler) DeleteComment(c echo.Context) error {
 
 	if *comment == (models.Comment{}) {
 		err := errors.New("comment with ID " + stringID + " does not exist")
-		return MakeResponse(c, http.StatusNotFound, NewError(err))
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	err = h.commentRepo.Delete(comment)
@@ -180,5 +180,5 @@ func (h *BaseHandler) DeleteComment(c echo.Context) error {
 		Error:   false,
 		Message: "comment with ID " + stringID + " was deleted successfully",
 	}
-	return MakeResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusOK, payload)
 }
