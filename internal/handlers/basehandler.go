@@ -7,7 +7,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/aerosystems/nix-trainee-4/internal/models"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
+	"github.com/labstack/echo/v4"
 )
 
 type BaseHandler struct {
@@ -27,6 +28,30 @@ func NewBaseHandler(commentRepo models.CommentRepository, postRepo models.PostRe
 		commentRepo: commentRepo,
 		postRepo:    postRepo,
 	}
+}
+
+func NewError(err error) Response {
+	return Response{
+		Error:   true,
+		Message: err.Error(),
+	}
+}
+
+func MakeResponse(c echo.Context, statusCode int, payload any) error {
+	acceptHeaders := c.Request().Header["Accept"]
+	if Contains(acceptHeaders, "application/xml") {
+		return c.XML(statusCode, payload)
+	}
+	return c.JSON(statusCode, payload)
+}
+
+func Contains(a []string, x string) bool {
+	for _, n := range a {
+		if x == n {
+			return true
+		}
+	}
+	return false
 }
 
 // writeResponse takes a response status code and arbitrary data and writes a xml/json response to the client in depends of Header Accept

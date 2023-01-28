@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/aerosystems/nix-trainee-4/internal/models"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/go-chi/chi/v5"
 )
 

@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 
-	"github.com/aerosystems/nix-trainee-4/internal/handlers"
-	"github.com/aerosystems/nix-trainee-4/internal/storage"
-	"github.com/aerosystems/nix-trainee-4/pkg/mysql/mygorm"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/mysql/mygorm"
 )
 
 const webPort = 8080
@@ -25,15 +23,7 @@ func main() {
 		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo),
 	}
 
-	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", webPort),
-		Handler: app.routes(),
-	}
+	e := app.NewRouter()
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", webPort)))
 
-	log.Printf("Starting service on port %d\n", webPort)
-	err := srv.ListenAndServe()
-
-	if err != nil {
-		log.Panic(err)
-	}
 }

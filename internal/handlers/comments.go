@@ -2,23 +2,22 @@ package handlers
 
 import (
 	"errors"
-	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/aerosystems/nix-trainee-4/internal/models"
-	"github.com/go-chi/chi/v5"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
+	"github.com/labstack/echo/v4"
 )
 
-func (h *BaseHandler) ReadComments(w http.ResponseWriter, r *http.Request) {
+func (h *BaseHandler) ReadComments(c echo.Context) error {
 	comments, err := h.commentRepo.FindAll()
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if len(*comments) == 0 {
-		_ = writeError(w, r, errors.New("comments do not exist"), http.StatusNotFound)
-		return
+		err := errors.New("comments do not exist")
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	payload := Response{
@@ -26,25 +25,25 @@ func (h *BaseHandler) ReadComments(w http.ResponseWriter, r *http.Request) {
 		Message: "all comments with ID were found successfully",
 		Data:    comments,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return MakeResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) ReadComment(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = writeError(w, r, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
-		return
+		err := errors.New("comment with ID " + stringID + " does not exist")
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	payload := Response{
@@ -52,43 +51,36 @@ func (h *BaseHandler) ReadComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was found successfully",
 		Data:    comment,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return MakeResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) CreateComment(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
-	var requestPayload struct {
-		PostID int    `json:"postId" xml:"postId"`
-		Name   string `json:"name" xml:"name"`
-		Email  string `json:"email" xml:"email"`
-		Body   string `json:"body" xml:"body"`
-	}
+	requestPayload := new(models.Comment)
 
-	err = readRequest(w, r, &requestPayload)
-	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
-		return
+	if err = c.Bind(&requestPayload); err != nil {
+		return MakeResponse(c, http.StatusBadRequest, NewError(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *comment != (models.Comment{}) {
-		_ = writeError(w, r, errors.New("comment with ID "+stringID+" exists"), http.StatusNotFound)
-		return
+		err := errors.New("comment with ID " + stringID + " exists")
+		return MakeResponse(c, http.StatusBadRequest, NewError(err))
 	}
 
 	newComment := models.Comment{
 		Id:     ID,
-		PostId: requestPayload.PostID,
+		PostId: requestPayload.PostId,
 		Name:   requestPayload.Name,
 		Email:  requestPayload.Email,
 		Body:   requestPayload.Body,
@@ -96,7 +88,7 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 
 	err = h.commentRepo.Create(&newComment)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
@@ -104,45 +96,39 @@ func (h *BaseHandler) CreateComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was created successfully",
 		Data:    newComment,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+
+	return MakeResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) UpdateComment(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
-	var requestPayload struct {
-		PostID int    `json:"postId" xml:"postId"`
-		Name   string `json:"name" xml:"name"`
-		Email  string `json:"email" xml:"email"`
-		Body   string `json:"body" xml:"body"`
-	}
+	requestPayload := new(models.Comment)
 
-	err = readRequest(w, r, &requestPayload)
-	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
-		return
+	if err = c.Bind(&requestPayload); err != nil {
+		return MakeResponse(c, http.StatusBadRequest, NewError(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = writeError(w, r, errors.New("comment with ID "+stringID+"does not exists"), http.StatusNotFound)
-		return
+		err := errors.New("comment with ID " + stringID + "does not exists")
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	newComment := comment
 	newComment.Id = ID
 
-	if requestPayload.PostID != 0 {
-		newComment.PostId = requestPayload.PostID
+	if requestPayload.PostId != 0 {
+		newComment.PostId = requestPayload.PostId
 	}
 	if requestPayload.Name != "" {
 		newComment.Name = requestPayload.Name
@@ -156,7 +142,7 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 
 	err = h.commentRepo.Update(newComment)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
@@ -164,36 +150,35 @@ func (h *BaseHandler) UpdateComment(w http.ResponseWriter, r *http.Request) {
 		Message: "comment with ID " + stringID + " was updated successfully",
 		Data:    nil,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return MakeResponse(c, http.StatusOK, payload)
 }
 
-func (h *BaseHandler) DeleteComment(w http.ResponseWriter, r *http.Request) {
-	stringID := chi.URLParam(r, "id")
+func (h *BaseHandler) DeleteComment(c echo.Context) error {
+	stringID := c.Param("id")
 
 	ID, err := strconv.Atoi(stringID)
 	if err != nil {
-		_ = writeError(w, r, err, http.StatusBadRequest)
+		return MakeResponse(c, http.StatusBadRequest, NewError(err))
 	}
 
 	comment, err := h.commentRepo.FindByID(ID)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	if *comment == (models.Comment{}) {
-		_ = writeError(w, r, errors.New("comment with ID "+stringID+" does not exist"), http.StatusNotFound)
-		return
+		err := errors.New("comment with ID " + stringID + " does not exist")
+		return MakeResponse(c, http.StatusNotFound, NewError(err))
 	}
 
 	err = h.commentRepo.Delete(comment)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 
 	payload := Response{
 		Error:   false,
 		Message: "comment with ID " + stringID + " was deleted successfully",
-		Data:    nil,
 	}
-	_ = writeResponse(w, r, http.StatusOK, payload)
+	return MakeResponse(c, http.StatusOK, payload)
 }

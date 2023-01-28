@@ -1,6 +1,6 @@
 # nix-trainee-5
 
-All examples of usage Rest API Postman Collection(look at nix-trainee-4.postman_collection.json file).
+All examples of usage Rest API Postman Collection(look at nix-trainee-5.postman_collection.json file).
 
 ### JSON
 If you want to send JSON data - you must use Content-Type Header with value application/json.
