@@ -10,7 +10,7 @@ import (
 func (app *Config) NewRouter() *echo.Echo {
 	e := echo.New()
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/docs/*", echoSwagger.WrapHandler)
 
 	e.GET("/v1/comments", app.BaseHandler.ReadComments)
 	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment)

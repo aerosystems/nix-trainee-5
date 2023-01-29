@@ -8,16 +8,49 @@ definitions:
       message:
         type: string
     type: object
+  models.Comment:
+    properties:
+      body:
+        example: fuga aut est delectus...
+        type: string
+      email:
+        example: lindsey@caitlyn.net
+        type: string
+      id:
+        example: 302
+        type: integer
+      name:
+        example: quia voluptatem...
+        type: string
+      postId:
+        example: 61
+        type: integer
+    type: object
+  models.Post:
+    properties:
+      body:
+        example: dolore maxime saepe...
+        type: string
+      id:
+        example: 61
+        type: integer
+      title:
+        example: voluptatem doloribus...
+        type: string
+      userId:
+        example: 7
+        type: integer
+    type: object
 host: localhost:8080
 info:
   contact:
     name: Artem Kostenko
     url: https://github.com/aerosystems
-  description: Simple REST API for CRUD operations with comments & posts enity.
+  description: Simple REST API for CRUD operations with Comments & Posts enities.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: Nix Trainee 5-6-7-8 tasks
+  title: NIX Trainee 5-6-7-8 tasks
   version: "1.0"
 paths:
   /comments:
@@ -25,6 +58,43 @@ paths:
       consumes:
       - application/json
       - text/xml
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Comment'
+                  type: array
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: get all comments
+      tags:
+      - comments
+  /comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       - application/xml
@@ -41,7 +111,277 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.Response'
-      summary: get all comments
+      summary: delete comment by ID
       tags:
       - comments
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Comment'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: get comment by ID
+      tags:
+      - comments
+    patch:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Comment'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: particular update comment by ID
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Comment'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: create comment by ID
+      tags:
+      - comments
+  /posts:
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Post'
+                  type: array
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: get all posts
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: delete post by ID
+      tags:
+      - posts
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: get post by ID
+      tags:
+      - posts
+    patch:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: particular update post by ID
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: create post by ID
+      tags:
+      - posts
 swagger: "2.0"

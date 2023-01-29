@@ -14,9 +14,9 @@ type Config struct {
 	BaseHandler *handlers.BaseHandler
 }
 
-// @title Nix Trainee 5-6-7-8 tasks
+// @title NIX Trainee 5-6-7-8 tasks
 // @version 1.0
-// @description Simple REST API for CRUD operations with comments & posts enity.
+// @description Simple REST API for CRUD operations with Comments & Posts enities.
 
 // @contact.name Artem Kostenko
 // @contact.url https://github.com/aerosystems

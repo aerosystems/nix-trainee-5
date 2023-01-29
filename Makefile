@@ -16,8 +16,8 @@ start:
 	go run ./cmd/app/*
 	@echo "Stopping docker images..."
 	
-## docs: genereting Swagger Docs
-docs:
+## doc: genereting Swagger Docs
+doc:
 	@echo "Stopping genereting Swagger Docs..."
 	swag init -g ./cmd/app/* --output ./docs
 	@echo "Swagger Docs prepared, look at /docs"

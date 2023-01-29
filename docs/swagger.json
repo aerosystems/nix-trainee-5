@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Simple REST API for CRUD operations with comments \u0026 posts enity.",
-        "title": "Nix Trainee 5-6-7-8 tasks",
+        "description": "Simple REST API for CRUD operations with Comments \u0026 Posts enities.",
+        "title": "NIX Trainee 5-6-7-8 tasks",
         "contact": {
             "name": "Artem Kostenko",
             "url": "https://github.com/aerosystems"
@@ -34,7 +34,505 @@
                     "200": {
                         "description": "OK",
                         "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.Comment"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
                             "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/comments/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "get comment by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Comment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Comment"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "create comment by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Comment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Comment"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "delete comment by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Comment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "particular update comment by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Comment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Comment"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "get": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "get all posts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.Post"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "get post by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "create post by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "delete post by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "posts"
+                ],
+                "summary": "particular update post by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "404": {
@@ -63,6 +561,52 @@
                 },
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Comment": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "example": "fuga aut est delectus..."
+                },
+                "email": {
+                    "type": "string",
+                    "example": "lindsey@caitlyn.net"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 302
+                },
+                "name": {
+                    "type": "string",
+                    "example": "quia voluptatem..."
+                },
+                "postId": {
+                    "type": "integer",
+                    "example": 61
+                }
+            }
+        },
+        "models.Post": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "example": "dolore maxime saepe..."
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 61
+                },
+                "title": {
+                    "type": "string",
+                    "example": "voluptatem doloribus..."
+                },
+                "userId": {
+                    "type": "integer",
+                    "example": 7
                 }
             }
         }

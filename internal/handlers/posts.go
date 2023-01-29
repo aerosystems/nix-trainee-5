@@ -9,6 +9,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// ReadPosts godoc
+// @Summary get all posts
+// @Tags posts
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Success 200 {object} Response{data=[]models.Post}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /posts [get]
 func (h *BaseHandler) ReadPosts(c echo.Context) error {
 	posts, err := h.postRepo.FindAll()
 	if err != nil {
@@ -28,6 +39,18 @@ func (h *BaseHandler) ReadPosts(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// ReadPost godoc
+// @Summary get post by ID
+// @Tags posts
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Post ID"
+// @Success 200 {object} Response{data=models.Post}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /posts/{id} [get]
 func (h *BaseHandler) ReadPost(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -54,6 +77,18 @@ func (h *BaseHandler) ReadPost(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// CreatePost godoc
+// @Summary create post by ID
+// @Tags posts
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Post ID"
+// @Success 200 {object} Response{data=models.Post}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /posts/{id} [post]
 func (h *BaseHandler) CreatePost(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -102,6 +137,18 @@ func (h *BaseHandler) CreatePost(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// UpdatePost godoc
+// @Summary particular update post by ID
+// @Tags posts
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Post ID"
+// @Success 200 {object} Response{data=models.Post}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /posts/{id} [patch]
 func (h *BaseHandler) UpdatePost(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -156,6 +203,18 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// DeletePost godoc
+// @Summary delete post by ID
+// @Tags posts
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Post ID"
+// @Success 200 {object} Response{data=models.Post}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /posts/{id} [delete]
 func (h *BaseHandler) DeletePost(c echo.Context) error {
 	stringID := c.Param("id")
 

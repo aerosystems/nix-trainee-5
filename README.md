@@ -1,4 +1,4 @@
-# nix-trainee-5
+# nix-trainee-5-6-7-8
 
 All examples of usage Rest API Postman Collection(look at nix-trainee-5.postman_collection.json file).
 

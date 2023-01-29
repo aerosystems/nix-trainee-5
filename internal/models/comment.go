@@ -1,11 +1,11 @@
 package models
 
 type Comment struct {
-	Id     int    `json:"id" xml:"id" gorm:"<-"`
-	PostId int    `json:"postId" xml:"postId" gorm:"<-"`
-	Name   string `json:"name" xml:"name" gorm:"<-"`
-	Email  string `json:"email" xml:"email" gorm:"<-"`
-	Body   string `json:"body" xml:"body" gorm:"<-"`
+	Id     int    `json:"id" xml:"id" gorm:"<-" example:"302"`
+	PostId int    `json:"postId" xml:"postId" gorm:"<-" example:"61"`
+	Name   string `json:"name" xml:"name" gorm:"<-" example:"quia voluptatem..."`
+	Email  string `json:"email" xml:"email" gorm:"<-" example:"lindsey@caitlyn.net"`
+	Body   string `json:"body" xml:"body" gorm:"<-" example:"fuga aut est delectus..."`
 }
 
 type CommentRepository interface {

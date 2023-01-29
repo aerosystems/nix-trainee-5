@@ -9,14 +9,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-
+// ReadComments godoc
 // @Summary get all comments
 // @Tags comments
 // @Accept  json
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
-// @Success 200 {object} Response
+// @Success 200 {object} Response{data=[]models.Comment}
 // @Failure 500 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments [get]
@@ -39,6 +39,18 @@ func (h *BaseHandler) ReadComments(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// ReadComment godoc
+// @Summary get comment by ID
+// @Tags comments
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Comment ID"
+// @Success 200 {object} Response{data=models.Comment}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /comments/{id} [get]
 func (h *BaseHandler) ReadComment(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -65,6 +77,18 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// CreateComment godoc
+// @Summary create comment by ID
+// @Tags comments
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Comment ID"
+// @Success 200 {object} Response{data=models.Comment}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /comments/{id} [post]
 func (h *BaseHandler) CreateComment(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -111,6 +135,18 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// UpdateComment godoc
+// @Summary particular update comment by ID
+// @Tags comments
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Comment ID"
+// @Success 200 {object} Response{data=models.Comment}
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /comments/{id} [patch]
 func (h *BaseHandler) UpdateComment(c echo.Context) error {
 	stringID := c.Param("id")
 
@@ -164,6 +200,18 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 	return WriteResponse(c, http.StatusOK, payload)
 }
 
+// DeleteComment godoc
+// @Summary delete comment by ID
+// @Tags comments
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param	id	path	int	true "Comment ID"
+// @Success 200 {object} Response
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /comments/{id} [delete]
 func (h *BaseHandler) DeleteComment(c echo.Context) error {
 	stringID := c.Param("id")
 
