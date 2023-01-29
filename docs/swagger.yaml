@@ -1,48 +1,47 @@
-basePath: /v2
+basePath: /v1
 definitions:
-  models.Comment:
+  handlers.Response:
     properties:
-      body:
+      data: {}
+      error:
+        type: boolean
+      message:
         type: string
-      email:
-        type: string
-      id:
-        type: integer
-      name:
-        type: string
-      postId:
-        type: integer
     type: object
-host: petstore.swagger.io
+host: localhost:8080
 info:
   contact:
-    email: support@swagger.io
-    name: API Support
-    url: http://www.swagger.io/support
-  description: This is a sample server Petstore server.
+    name: Artem Kostenko
+    url: https://github.com/aerosystems
+  description: Simple REST API for CRUD operations with comments & posts enity.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: http://swagger.io/terms/
-  title: Swagger Example API
+  title: Nix Trainee 5-6-7-8 tasks
   version: "1.0"
 paths:
-  /v1/comments:
+  /comments:
     get:
-      parameters:
-      - description: query params
-        in: body
-        name: request
-        required: true
-        schema:
-          items:
-            $ref: '#/definitions/models.Comment'
-          type: array
+      consumes:
+      - application/json
+      - text/xml
+      produces:
+      - application/json
+      - application/xml
       responses:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/models.Comment'
-            type: array
+            $ref: '#/definitions/handlers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: get all comments
+      tags:
+      - comments
 swagger: "2.0"

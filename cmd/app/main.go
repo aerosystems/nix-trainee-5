@@ -14,20 +14,18 @@ type Config struct {
 	BaseHandler *handlers.BaseHandler
 }
 
-// @title Swagger Example API
+// @title Nix Trainee 5-6-7-8 tasks
 // @version 1.0
-// @description This is a sample server Petstore server.
-// @termsOfService http://swagger.io/terms/
+// @description Simple REST API for CRUD operations with comments & posts enity.
 
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.name Artem Kostenko
+// @contact.url https://github.com/aerosystems
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host petstore.swagger.io
-// @BasePath /v2
+// @host localhost:8080
+// @BasePath /v1
 func main() {
 	clientGORM := mygorm.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
@@ -38,6 +36,7 @@ func main() {
 	}
 
 	e := app.NewRouter()
+	app.AddMiddleware(e)
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", webPort)))
 
 }

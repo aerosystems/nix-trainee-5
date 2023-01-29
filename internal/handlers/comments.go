@@ -9,9 +9,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// @Param request body []models.Comment true "query params"
-// @Success 200 {object} []models.Comment
-// @Router /v1/comments [get]
+
+// @Summary get all comments
+// @Tags comments
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Success 200 {object} Response
+// @Failure 500 {object} Response
+// @Failure 404 {object} Response
+// @Router /comments [get]
 func (h *BaseHandler) ReadComments(c echo.Context) error {
 	comments, err := h.commentRepo.FindAll()
 	if err != nil {

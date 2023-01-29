@@ -9,11 +9,9 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
+            "name": "Artem Kostenko",
+            "url": "https://github.com/aerosystems"
         },
         "license": {
             "name": "Apache 2.0",
@@ -24,30 +22,37 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/comments": {
+        "/comments": {
             "get": {
-                "parameters": [
-                    {
-                        "description": "query params",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Comment"
-                            }
-                        }
-                    }
+                "consumes": [
+                    "application/json",
+                    "text/xml"
                 ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "get all comments",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Comment"
-                            }
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
                         }
                     }
                 }
@@ -55,23 +60,15 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Comment": {
+        "handlers.Response": {
             "type": "object",
             "properties": {
-                "body": {
+                "data": {},
+                "error": {
+                    "type": "boolean"
+                },
+                "message": {
                     "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "postId": {
-                    "type": "integer"
                 }
             }
         }
@@ -81,11 +78,11 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "petstore.swagger.io",
-	BasePath:         "/v2",
+	Host:             "localhost:8080",
+	BasePath:         "/v1",
 	Schemes:          []string{},
-	Title:            "Swagger Example API",
-	Description:      "This is a sample server Petstore server.",
+	Title:            "Nix Trainee 5-6-7-8 tasks",
+	Description:      "Simple REST API for CRUD operations with comments & posts enity.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
