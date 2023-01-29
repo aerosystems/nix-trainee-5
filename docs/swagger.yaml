@@ -1,0 +1,48 @@
+basePath: /v2
+definitions:
+  models.Comment:
+    properties:
+      body:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      postId:
+        type: integer
+    type: object
+host: petstore.swagger.io
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /v1/comments:
+    get:
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.Comment'
+          type: array
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Comment'
+            type: array
+swagger: "2.0"
