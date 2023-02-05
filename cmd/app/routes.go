@@ -12,11 +12,20 @@ func (app *Config) NewRouter() *echo.Echo {
 
 	e.GET("/docs/*", echoSwagger.WrapHandler)
 
+	e.POST("/v1/users/registration", app.BaseHandler.Registration)
+	// e.POST("/v1/users/confirmation", app.BaseHandler.Confirmation)
+
+	// e.POST("/v1/users/login", app.BaseHandler.Login)
+	// e.POST("/v1/users/logout", app.BaseHandler.Logout)
+
+	// e.POST("/v1/tokens/refresh", app.BaseHandler.RefreshToken)
+
 	e.GET("/v1/comments", app.BaseHandler.ReadComments)
 	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment)
 	e.POST("/v1/comments/:id", app.BaseHandler.CreateComment)
 	e.PATCH("/v1/comments/:id", app.BaseHandler.UpdateComment)
 	e.DELETE("/v1/comments/:id", app.BaseHandler.DeleteComment)
+
 	e.GET("/v1/posts", app.BaseHandler.ReadPosts)
 	e.GET("/v1/posts/:id", app.BaseHandler.ReadPost)
 	e.POST("/v1/posts/:id", app.BaseHandler.CreatePost)

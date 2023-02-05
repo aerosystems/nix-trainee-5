@@ -1,12 +1,12 @@
 package storage
 
 import (
-	"math/rand"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/helpers"
 	"gorm.io/gorm"
 )
 
@@ -88,12 +88,8 @@ func (r *codeRepo) NewCode(UserID int, Action string, Data string) (*models.Code
 		return nil, err
 	}
 
-	rand.Seed(time.Now().UnixNano())
-	min := 100000
-	max := 999999
-	XXXXXX := rand.Intn(max-min+1) + min
 	code := models.Code{
-		Code:       XXXXXX,
+		Code:       helpers.GenCode(),
 		UserID:     UserID,
 		Created:    time.Now(),
 		Expiration: time.Now().Add(time.Minute * time.Duration(codeExpMinutes)),

@@ -30,13 +30,15 @@ func main() {
 	clientGORM := mygorm.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
 	postRepo := storage.NewPostRepo(clientGORM)
+	userRepo := storage.NewUserRepo(clientGORM)
+	codeRepo := storage.NewCodeRepo(clientGORM)
+
 
 	app := Config{
-		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo),
+		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo),
 	}
 
 	e := app.NewRouter()
 	app.AddMiddleware(e)
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", webPort)))
-
 }

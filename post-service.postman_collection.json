@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "3fe78206-92e5-4600-8512-c9e484714f1d",
+		"name": "nix-trainee-5-6-7-8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14852009"
+	},
+	"item": [
+		{
+			"name": "JSON",
+			"item": [
+				{
+					"name": "/v1/comments",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postId\": 61,\n    \"name\": \"excepturi itaque laudantium reiciendis dolorem\",\n    \"email\": \"Gregory.Kutch@shawn.info\",\n    \"body\": \"sit nesciunt id vitae ut itaque sapiente\\nneque in at consequuntur perspiciatis dicta consequatur velit\\nfacilis iste ut error sed\\nin sequi expedita autem\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postId\": 77761,\n    \"name\": \"777excepturi itaque laudantium reiciendis dolorem\",\n    \"body\": \"sit nesciunt id vitae ut itaque sapiente\\nneque in at consequuntur perspiciatis dicta consequatur velit\\nfacilis iste ut error sed\\nin sequi expedita autem\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 7,\n    \"title\": \"voluptatem doloribus consectetur est ut ducimus\",\n    \"body\": \"ab nemo optio odio\\ndelectus tenetur corporis similique nobis repellendus rerum omnis facilis\\nvero blanditiis debitis in nesciunt doloribus dicta dolores\\nmagnam minus velit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 777,\n    \"title\": \"voluptatem doloribus consectetur est ut ducimus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "XML",
+			"item": [
+				{
+					"name": "/v1/comments",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<comment>\n    <postId>61</postId>\n    <name>id voluptatibus voluptas occaecati quia sunt eveniet et eius</name>\n    <email>Tiana@jeramie.tv</email>\n    <body>dolore maxime saepe dolor asperiores cupiditate nisi nesciunt&#xA;vitae tempora ducimus vel eos perferendis&#xA;fuga sequi numquam blanditiis sit sed inventore et&#xA;ut possimus soluta voluptas nihil aliquid sed earum</body>\n</comment>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<comment>\n    <postId>77761</postId>\n    <name>id voluptatibus voluptas occaecati quia sunt eveniet et eius</name>\n    <email>Tiana@jeramie.tv</email>\n</comment>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<post>\n    <userId>7</userId>\n    <title>voluptatem doloribus consectetur est ut ducimus</title>\n    <body>dolore maxime saepe dolor asperiores cupiditate nisi nesciunt&#xA;vitae tempora ducimus vel eos perferendis&#xA;fuga sequi numquam blanditiis sit sed inventore et&#xA;ut possimus soluta voluptas nihil aliquid sed earum</body>\n</post>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<post>\n    <userId>777</userId>\n    <title>voluptatem doloribus consectetur est ut ducimus</title>\n</post>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
