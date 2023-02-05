@@ -8,6 +8,8 @@ import (
 type BaseHandler struct {
 	commentRepo models.CommentRepository
 	postRepo    models.PostRepository
+	userRepo    models.UserRepository
+	codeRepo    models.CodeRepository
 }
 
 // Response is the type used for sending JSON around
@@ -17,10 +19,12 @@ type Response struct {
 	Data    any    `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func NewBaseHandler(commentRepo models.CommentRepository, postRepo models.PostRepository) *BaseHandler {
+func NewBaseHandler(commentRepo models.CommentRepository, postRepo models.PostRepository, userRepo models.UserRepository, codeRepo models.CodeRepository) *BaseHandler {
 	return &BaseHandler{
 		commentRepo: commentRepo,
 		postRepo:    postRepo,
+		userRepo:    userRepo,
+		codeRepo:    codeRepo,
 	}
 }
 
