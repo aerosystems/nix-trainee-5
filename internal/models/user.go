@@ -3,13 +3,13 @@ package models
 import "time"
 
 type User struct {
-	ID       int       `json:"id" xml:"id"  gorm:"<-"`
-	Email    string    `json:"email" xml:"email"  gorm:"<-"`
-	Password string    `json:"-" xml:"_"  gorm:"<-"`
-	Role     string    `json:"role" xml:"role"  gorm:"<-"`
-	Created  time.Time `json:"created" xml:"created"  gorm:"<-"`
-	Updated  time.Time `json:"updated" xml:"updated"  gorm:"<-"`
-	Active   bool      `json:"active" xml:"active"  gorm:"<-"`
+	ID        int       `json:"id" xml:"id"  gorm:"<-"`
+	Email     string    `json:"email" xml:"email"  gorm:"<-"`
+	Password  string    `json:"-" xml:"_"  gorm:"<-"`
+	Role      string    `json:"role" xml:"role"  gorm:"<-"`
+	CreatedAt time.Time `json:"created_at" xml:"created_at"  gorm:"<-"`
+	UpdatedAt time.Time `json:"updated_at" xml:"updated_at"  gorm:"<-"`
+	IsActive  bool      `json:"is_active" xml:"is_active"  gorm:"<-"`
 }
 
 type UserRepository interface {

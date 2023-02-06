@@ -8,14 +8,6 @@ import (
 	"strings"
 )
 
-func ValidateRole(role string) error {
-	trustRoles := strings.Split(os.Getenv("TRUST_ROLES"), ",")
-	if !Contains(trustRoles, role) {
-		return errors.New("role exists in trusted roles")
-	}
-	return nil
-}
-
 func ValidateEmail(data string) (string, error) {
 	email, err := mail.ParseAddress(data)
 	if err != nil {

@@ -14,7 +14,6 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 	var requestPayload struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
-		Role     string `json:"role"`
 	}
 
 	if err := c.Bind(&requestPayload); err != nil {
@@ -39,18 +38,14 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	// validate user role
-	err = helpers.ValidateRole(requestPayload.Role)
-	if err != nil {
-		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
-	}
-
 	var payload Response
 
 	//checking if email is existing
-	user, _ := h.userRepo.FindByEmail(email)
+	user, err := h.userRepo.FindByEmail(email)
+	fmt.Println(email, user, "\n", err)
 	if user != nil {
-		if user.Active {
+		fmt.Println("dfsdfsdfsdf")
+		if user.IsActive {
 			err = errors.New("email already exists")
 			return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 		} else {
@@ -59,14 +54,8 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 			if err != nil {
 				return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 			}
-			// updating other data for inactive user
-			user.Role = requestPayload.Role
-			err = h.userRepo.Update(user)
-			if err != nil {
-				return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
-			}
 
-			code, _ := h.codeRepo.GetLastActiveCode(user.ID, "registration")
+			code, _ := h.codeRepo.GetLastIsActiveCode(user.ID, "registration")
 
 			if code == nil {
 				// generating confirmation code
@@ -94,10 +83,10 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 	newUser := models.User{
 		Email:    email,
 		Password: requestPayload.Password,
-		Role:     requestPayload.Role,
+		Role:     "user",
 	}
 	err = h.userRepo.Create(&newUser)
-	
+
 	if err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}

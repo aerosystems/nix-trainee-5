@@ -15,8 +15,11 @@ services:
       replicas: 1
     environment:
       CODE_EXP_MINUTES: ${CODE_EXP_MINUTES}
+      GOOGLEMAIL_DOMAINS: ${GOOGLEMAIL_DOMAINS}
       MYSQL_DSN: ${MYSQL_DSN}
-
+      REDIS_DSN: ${REDIS_DSN}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      
   # MySQL
   mysql:
     container_name: mysql8

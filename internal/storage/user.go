@@ -4,17 +4,20 @@ import (
 	"errors"
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
+	"github.com/go-redis/redis/v7"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
 type userRepo struct {
-	db *gorm.DB
+	db    *gorm.DB
+	cache *redis.Client
 }
 
-func NewUserRepo(db *gorm.DB) *userRepo {
+func NewUserRepo(db *gorm.DB, cache *redis.Client) *userRepo {
 	return &userRepo{
-		db: db,
+		db:    db,
+		cache: cache,
 	}
 }
 
@@ -26,13 +29,19 @@ func (r *userRepo) FindAll() (*[]models.User, error) {
 
 func (r *userRepo) FindByID(ID int) (*models.User, error) {
 	var user models.User
-	r.db.Find(&user, ID)
+	result := r.db.Find(&user, ID)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &user, nil
 }
 
 func (r *userRepo) FindByEmail(Email string) (*models.User, error) {
 	var user models.User
-	r.db.Find(&user, Email)
+	result := r.db.Where("email = ?", Email).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &user, nil
 }
 

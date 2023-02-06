@@ -5,6 +5,7 @@ import (
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/myredis"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/mysql/mygorm"
 )
 
@@ -28,11 +29,11 @@ type Config struct {
 // @BasePath /v1
 func main() {
 	clientGORM := mygorm.NewClient()
+	clientREDIS := myredis.NewClient()
 	commentRepo := storage.NewCommentRepo(clientGORM)
 	postRepo := storage.NewPostRepo(clientGORM)
-	userRepo := storage.NewUserRepo(clientGORM)
+	userRepo := storage.NewUserRepo(clientGORM, clientREDIS)
 	codeRepo := storage.NewCodeRepo(clientGORM)
-
 
 	app := Config{
 		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo),

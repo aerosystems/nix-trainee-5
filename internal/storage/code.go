@@ -28,7 +28,10 @@ func (r *codeRepo) FindAll() (*[]models.Code, error) {
 
 func (r *codeRepo) FindByID(ID int) (*models.Code, error) {
 	var code models.Code
-	r.db.Find(&code, ID)
+	result := r.db.Find(&code, ID)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &code, nil
 }
 
@@ -58,13 +61,19 @@ func (r *codeRepo) Delete(code *models.Code) error {
 
 func (r *codeRepo) GetByCode(Code int) (*models.Code, error) {
 	var code models.Code
-	r.db.Find(&code, Code)
+	result := r.db.Where("code = ?", Code).First(&code)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &code, nil
 }
 
-func (r *codeRepo) GetLastActiveCode(UserID int, Action string) (*models.Code, error) {
+func (r *codeRepo) GetLastIsActiveCode(UserID int, Action string) (*models.Code, error) {
 	var code models.Code
-	r.db.Find(&code, UserID, Action)
+	result := r.db.Where("user_id = ? AND action = ?", UserID, Action).First(&code)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	return &code, nil
 }
 
@@ -73,7 +82,7 @@ func (r *codeRepo) ExtendExpiration(code *models.Code) error {
 	if err != nil {
 		return err
 	}
-	code.Expiration = time.Now().Add(time.Minute * time.Duration(codeExpMinutes))
+	code.ExpireAt = time.Now().Add(time.Minute * time.Duration(codeExpMinutes))
 	result := r.db.Save(&code)
 	if result.Error != nil {
 		return result.Error
@@ -89,13 +98,13 @@ func (r *codeRepo) NewCode(UserID int, Action string, Data string) (*models.Code
 	}
 
 	code := models.Code{
-		Code:       helpers.GenCode(),
-		UserID:     UserID,
-		Created:    time.Now(),
-		Expiration: time.Now().Add(time.Minute * time.Duration(codeExpMinutes)),
-		Action:     Action,
-		Data:       Data,
-		Used:       false,
+		Code:      helpers.GenCode(),
+		UserID:    UserID,
+		CreatedAt: time.Now(),
+		ExpireAt:  time.Now().Add(time.Minute * time.Duration(codeExpMinutes)),
+		Action:    Action,
+		Data:      Data,
+		IsUsed:    false,
 	}
 
 	result := r.db.Create(&code)
