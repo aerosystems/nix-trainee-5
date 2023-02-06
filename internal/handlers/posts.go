@@ -17,7 +17,7 @@ import (
 // @Produce application/json
 // @Produce application/xml
 // @Success 200 {object} Response{data=[]models.Post}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts [get]
 func (h *BaseHandler) ReadPosts(c echo.Context) error {
@@ -48,7 +48,7 @@ func (h *BaseHandler) ReadPosts(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
 // @Success 200 {object} Response{data=models.Post}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [get]
 func (h *BaseHandler) ReadPost(c echo.Context) error {
@@ -86,7 +86,7 @@ func (h *BaseHandler) ReadPost(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
 // @Success 200 {object} Response{data=models.Post}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [post]
 func (h *BaseHandler) CreatePost(c echo.Context) error {
@@ -104,7 +104,7 @@ func (h *BaseHandler) CreatePost(c echo.Context) error {
 	}
 
 	if err = c.Bind(&requestPayload); err != nil {
-		return WriteResponse(c, http.StatusBadRequest, err)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	post, err := h.postRepo.FindByID(ID)
@@ -146,7 +146,7 @@ func (h *BaseHandler) CreatePost(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
 // @Success 200 {object} Response{data=models.Post}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [patch]
 func (h *BaseHandler) UpdatePost(c echo.Context) error {
@@ -212,7 +212,7 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
 // @Success 200 {object} Response{data=models.Post}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [delete]
 func (h *BaseHandler) DeletePost(c echo.Context) error {

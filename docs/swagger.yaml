@@ -1,5 +1,20 @@
 basePath: /v1
 definitions:
+  handlers.CodeRequestBoby:
+    properties:
+      code:
+        example: 123456
+        type: integer
+    type: object
+  handlers.RegistrationRequestBody:
+    properties:
+      email:
+        example: example@gmail.com
+        type: string
+      password:
+        example: P@ssw0rd
+        type: string
+    type: object
   handlers.Response:
     properties:
       data: {}
@@ -73,12 +88,12 @@ paths:
                     $ref: '#/definitions/models.Comment'
                   type: array
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: get all comments
@@ -103,12 +118,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handlers.Response'
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: delete comment by ID
@@ -137,12 +152,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Comment'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: get comment by ID
@@ -171,12 +186,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Comment'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: particular update comment by ID
@@ -205,12 +220,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Comment'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: create comment by ID
@@ -236,12 +251,12 @@ paths:
                     $ref: '#/definitions/models.Post'
                   type: array
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: get all posts
@@ -271,12 +286,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Post'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: delete post by ID
@@ -305,12 +320,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Post'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: get post by ID
@@ -339,12 +354,12 @@ paths:
                 data:
                   $ref: '#/definitions/models.Post'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: particular update post by ID
@@ -373,15 +388,84 @@ paths:
                 data:
                   $ref: '#/definitions/models.Post'
               type: object
-        "404":
-          description: Not Found
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/handlers.Response'
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: create post by ID
       tags:
       - posts
+  /users/confirmation:
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: raw request body
+        in: body
+        name: code
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CodeRequestBoby'
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: confirm registration/reset password with 6-digit code from email/sms
+      tags:
+      - users
+  /users/registration:
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      description: |-
+        Password should contain:
+        - minimum of one small case letter
+        - minimum of one upper case letter
+        - minimum of one digit
+        - minimum of one special character
+        - minimum 8 characters length
+      parameters:
+      - description: raw request body
+        in: body
+        name: registration
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.RegistrationRequestBody'
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: registration user by credentionals
+      tags:
+      - users
 swagger: "2.0"

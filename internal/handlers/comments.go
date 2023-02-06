@@ -17,7 +17,7 @@ import (
 // @Produce application/json
 // @Produce application/xml
 // @Success 200 {object} Response{data=[]models.Comment}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments [get]
 func (h *BaseHandler) ReadComments(c echo.Context) error {
@@ -48,7 +48,7 @@ func (h *BaseHandler) ReadComments(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Comment ID"
 // @Success 200 {object} Response{data=models.Comment}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments/{id} [get]
 func (h *BaseHandler) ReadComment(c echo.Context) error {
@@ -86,7 +86,7 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Comment ID"
 // @Success 200 {object} Response{data=models.Comment}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments/{id} [post]
 func (h *BaseHandler) CreateComment(c echo.Context) error {
@@ -144,7 +144,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Comment ID"
 // @Success 200 {object} Response{data=models.Comment}
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments/{id} [patch]
 func (h *BaseHandler) UpdateComment(c echo.Context) error {
@@ -209,7 +209,7 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Comment ID"
 // @Success 200 {object} Response
-// @Failure 500 {object} Response
+// @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /comments/{id} [delete]
 func (h *BaseHandler) DeleteComment(c echo.Context) error {

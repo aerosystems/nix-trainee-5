@@ -10,14 +10,34 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type RegistrationRequestBody struct {
+	Email    string `json:"email" xml:"email" example:"example@gmail.com"`
+	Password string `json:"password" xml:"password" example:"P@ssw0rd"`
+}
+
+// Registration godoc
+// @Summary registration user by credentionals
+// @Description Password should contain:
+// @Description - minimum of one small case letter
+// @Description - minimum of one upper case letter
+// @Description - minimum of one digit
+// @Description - minimum of one special character
+// @Description - minimum 8 characters length
+// @Tags users
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Param registration body handlers.RegistrationRequestBody true "raw request body"
+// @Success 200 {object} Response
+// @Failure 400 {object} Response
+// @Failure 404 {object} Response
+// @Router /users/registration [post]
 func (h *BaseHandler) Registration(c echo.Context) error {
-	var requestPayload struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
+	var requestPayload RegistrationRequestBody
 
 	if err := c.Bind(&requestPayload); err != nil {
-		return WriteResponse(c, http.StatusBadRequest, err)
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	addr, err := helpers.ValidateEmail(requestPayload.Email)
@@ -41,10 +61,8 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 	var payload Response
 
 	//checking if email is existing
-	user, err := h.userRepo.FindByEmail(email)
-	fmt.Println(email, user, "\n", err)
+	user, _ := h.userRepo.FindByEmail(email)
 	if user != nil {
-		fmt.Println("dfsdfsdfsdf")
 		if user.IsActive {
 			err = errors.New("email already exists")
 			return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
