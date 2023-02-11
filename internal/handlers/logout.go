@@ -1,35 +1,30 @@
 package handlers
 
 import (
+	"errors"
+	"fmt"
 	"net/http"
 
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/labstack/echo/v4"
 )
 
 func (h *BaseHandler) Logout(c echo.Context) error {
+	accessTokenClaims, ok := c.Get("user").(*models.AccessTokenClaims)
+	if !ok {
+		err := errors.New("token is untracked")
+		return WriteResponse(c, http.StatusUnauthorized, NewErrorPayload(err))
+	}
+
+	err := h.tokensRepo.DropCacheTokens(*accessTokenClaims)
+	if err != nil {
+		return WriteResponse(c, http.StatusUnauthorized, NewErrorPayload(err))
+	}
+
 	payload := Response{
-		Error:   true,
-		Message: "sdfsdf",
-		Data:    nil,
+		Error:   false,
+		Message: fmt.Sprintf("User %s successfully logged out", accessTokenClaims.AccessUUID),
+		Data:    accessTokenClaims,
 	}
 	return WriteResponse(c, http.StatusAccepted, payload)
-	// accessTokenClaims, ok := r.Context().Value(contextKey("accessTokenClaims")).(*AccessTokenClaims)
-	// if !ok {
-	// 	_ = app.errorJSON(w, errors.New("token is untracked"), http.StatusUnauthorized)
-	// 	return
-	// }
-
-	// err := app.dropCacheTokens(*accessTokenClaims)
-	// if err != nil {
-	// 	_ = app.errorJSON(w, err, http.StatusUnauthorized)
-	// 	return
-	// }
-
-	// payload := jsonResponse{
-	// 	Error:   false,
-	// 	Message: fmt.Sprintf("User %s successfully logged out", accessTokenClaims.AccessUUID),
-	// 	Data:    accessTokenClaims,
-	// }
-
-	// _ = app.writeJSON(w, http.StatusAccepted, payload)
 }

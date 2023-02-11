@@ -32,15 +32,15 @@ func (app *Config) AuthorizationMiddleware() echo.MiddlewareFunc {
 }
 
 func (app *Config) ParseToken(c echo.Context, auth string) (interface{}, error) {
-	tokenClaims, err := app.TokensRepo.DecodeAccessToken(auth)
+	accessTokenClaims, err := app.TokensRepo.DecodeAccessToken(auth)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = app.TokensRepo.GetCacheValue(tokenClaims.AccessUUID)
+	_, err = app.TokensRepo.GetCacheValue(accessTokenClaims.AccessUUID)
 	if err != nil {
 		return nil, err
 	}
 
-	return tokenClaims, nil
+	return accessTokenClaims, nil
 }
