@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/myredis"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/mysql/mygorm"
@@ -13,6 +14,7 @@ const webPort = 8080
 
 type Config struct {
 	BaseHandler *handlers.BaseHandler
+	TokensRepo  models.TokensRepository
 }
 
 // @title NIX Trainee 5-6-7-8 tasks
@@ -38,6 +40,7 @@ func main() {
 
 	app := Config{
 		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo, tokensRepo),
+		TokensRepo: tokensRepo,
 	}
 
 	e := app.NewRouter()

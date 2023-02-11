@@ -16,7 +16,7 @@ func (app *Config) NewRouter() *echo.Echo {
 	e.POST("/v1/users/confirmation", app.BaseHandler.Confirmation)
 
 	e.POST("/v1/users/login", app.BaseHandler.Login)
-	// e.POST("/v1/users/logout", app.BaseHandler.Logout)
+	e.POST("/v1/users/logout", app.BaseHandler.Logout, app.AuthorizationMiddleware())
 
 	// e.POST("/v1/tokens/refresh", app.BaseHandler.RefreshToken)
 
