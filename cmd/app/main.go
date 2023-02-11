@@ -34,9 +34,10 @@ func main() {
 	postRepo := storage.NewPostRepo(clientGORM)
 	userRepo := storage.NewUserRepo(clientGORM, clientREDIS)
 	codeRepo := storage.NewCodeRepo(clientGORM)
+	tokensRepo := storage.NewTokensRepo(clientREDIS)
 
 	app := Config{
-		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo),
+		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo, tokensRepo),
 	}
 
 	e := app.NewRouter()

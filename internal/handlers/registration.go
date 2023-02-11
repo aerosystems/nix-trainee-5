@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/helpers"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
-	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/helpers"
 	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type RegistrationRequestBody struct {
@@ -97,10 +98,16 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 		}
 	}
 
+	// hashing password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(requestPayload.Password), 12)
+	if err != nil {
+		return err
+	}
+
 	// creating new inactive user
 	newUser := models.User{
 		Email:    email,
-		Password: requestPayload.Password,
+		Password: string(hashedPassword),
 		Role:     "user",
 	}
 	err = h.userRepo.Create(&newUser)
