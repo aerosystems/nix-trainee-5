@@ -18,19 +18,19 @@ func (app *Config) NewRouter() *echo.Echo {
 	e.POST("/v1/users/login", app.BaseHandler.Login)
 	e.POST("/v1/users/logout", app.BaseHandler.Logout, app.AuthorizationMiddleware())
 
-	// e.POST("/v1/tokens/refresh", app.BaseHandler.RefreshToken)
+	e.POST("/v1/tokens/refresh", app.BaseHandler.RefreshToken, app.AuthorizationMiddleware())
 
-	e.GET("/v1/comments", app.BaseHandler.ReadComments)
-	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment)
-	e.POST("/v1/comments/:id", app.BaseHandler.CreateComment)
-	e.PATCH("/v1/comments/:id", app.BaseHandler.UpdateComment)
-	e.DELETE("/v1/comments/:id", app.BaseHandler.DeleteComment)
+	e.GET("/v1/comments", app.BaseHandler.ReadComments, app.AuthorizationMiddleware())
+	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment, app.AuthorizationMiddleware())
+	e.POST("/v1/comments/:id", app.BaseHandler.CreateComment, app.AuthorizationMiddleware())
+	e.PATCH("/v1/comments/:id", app.BaseHandler.UpdateComment, app.AuthorizationMiddleware())
+	e.DELETE("/v1/comments/:id", app.BaseHandler.DeleteComment, app.AuthorizationMiddleware())
 
-	e.GET("/v1/posts", app.BaseHandler.ReadPosts)
-	e.GET("/v1/posts/:id", app.BaseHandler.ReadPost)
-	e.POST("/v1/posts/:id", app.BaseHandler.CreatePost)
-	e.PATCH("/v1/posts/:id", app.BaseHandler.UpdatePost)
-	e.DELETE("/v1/posts/:id", app.BaseHandler.DeletePost)
+	e.GET("/v1/posts", app.BaseHandler.ReadPosts, app.AuthorizationMiddleware())
+	e.GET("/v1/posts/:id", app.BaseHandler.ReadPost, app.AuthorizationMiddleware())
+	e.POST("/v1/posts/:id", app.BaseHandler.CreatePost, app.AuthorizationMiddleware())
+	e.PATCH("/v1/posts/:id", app.BaseHandler.UpdatePost, app.AuthorizationMiddleware())
+	e.DELETE("/v1/posts/:id", app.BaseHandler.DeletePost, app.AuthorizationMiddleware())
 
 	return e
 }

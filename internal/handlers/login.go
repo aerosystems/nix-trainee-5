@@ -14,6 +14,11 @@ type LoginRequestBody struct {
 	Password string `json:"password" xml:"password" example:"P@ssw0rd"`
 }
 
+type TokensResponseBody struct {
+	AccessToken  string `json:"access_token" xml:"access_token" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"`
+	RefreshToken string `json:"refresh_token" xml:"refresh_token" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"`
+}
+
 // Login godoc
 // @Summary login user by credentionals
 // @Description Password should contain:
@@ -22,13 +27,14 @@ type LoginRequestBody struct {
 // @Description - minimum of one digit
 // @Description - minimum of one special character
 // @Description - minimum 8 characters length
+// @Description Response contain pair JWT tokens, use /tokens/refresh for updating them
 // @Tags users
 // @Accept  json
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
 // @Param login body handlers.LoginRequestBody true "raw request body"
-// @Success 200 {object} Response
+// @Success 200 {object} Response{data=TokensResponseBody}
 // @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /users/login [post]
@@ -87,9 +93,9 @@ func (h *BaseHandler) Login(c echo.Context) error {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	tokens := map[string]string{
-		"access_token":  ts.AccessToken,
-		"refresh_token": ts.RefreshToken,
+	tokens := TokensResponseBody{
+		AccessToken:  ts.AccessToken,
+		RefreshToken: ts.RefreshToken,
 	}
 
 	payload := Response{

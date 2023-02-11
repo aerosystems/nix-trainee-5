@@ -16,8 +16,10 @@ import (
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
+// @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 200 {object} Response{data=[]models.Post}
 // @Failure 400 {object} Response
+// @Failure 401 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts [get]
 func (h *BaseHandler) ReadPosts(c echo.Context) error {
@@ -47,8 +49,10 @@ func (h *BaseHandler) ReadPosts(c echo.Context) error {
 // @Produce application/json
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
+// @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 200 {object} Response{data=models.Post}
 // @Failure 400 {object} Response
+// @Failure 401 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [get]
 func (h *BaseHandler) ReadPost(c echo.Context) error {
@@ -85,8 +89,10 @@ func (h *BaseHandler) ReadPost(c echo.Context) error {
 // @Produce application/json
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
+// @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 200 {object} Response{data=models.Post}
 // @Failure 400 {object} Response
+// @Failure 401 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [post]
 func (h *BaseHandler) CreatePost(c echo.Context) error {
@@ -145,8 +151,10 @@ func (h *BaseHandler) CreatePost(c echo.Context) error {
 // @Produce application/json
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
+// @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 200 {object} Response{data=models.Post}
 // @Failure 400 {object} Response
+// @Failure 401 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [patch]
 func (h *BaseHandler) UpdatePost(c echo.Context) error {
@@ -211,8 +219,10 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 // @Produce application/json
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
+// @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 200 {object} Response{data=models.Post}
 // @Failure 400 {object} Response
+// @Failure 401 {object} Response
 // @Failure 404 {object} Response
 // @Router /posts/{id} [delete]
 func (h *BaseHandler) DeletePost(c echo.Context) error {
