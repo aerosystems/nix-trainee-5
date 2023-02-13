@@ -3,14 +3,16 @@ package handlers
 import (
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/labstack/echo/v4"
+	"golang.org/x/oauth2"
 )
 
 type BaseHandler struct {
-	commentRepo models.CommentRepository
-	postRepo    models.PostRepository
-	userRepo    models.UserRepository
-	codeRepo    models.CodeRepository
-	tokensRepo  models.TokensRepository
+	googleOauthConfig *oauth2.Config
+	commentRepo       models.CommentRepository
+	postRepo          models.PostRepository
+	userRepo          models.UserRepository
+	codeRepo          models.CodeRepository
+	tokensRepo        models.TokensRepository
 }
 
 // Response is the type used for sending JSON around
@@ -20,13 +22,15 @@ type Response struct {
 	Data    any    `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func NewBaseHandler(commentRepo models.CommentRepository,
+func NewBaseHandler(googleOauthConfig *oauth2.Config,
+	commentRepo models.CommentRepository,
 	postRepo models.PostRepository,
 	userRepo models.UserRepository,
 	codeRepo models.CodeRepository,
 	tokensRepo models.TokensRepository,
 ) *BaseHandler {
 	return &BaseHandler{
+		googleOauthConfig: googleOauthConfig,
 		commentRepo: commentRepo,
 		postRepo:    postRepo,
 		userRepo:    userRepo,

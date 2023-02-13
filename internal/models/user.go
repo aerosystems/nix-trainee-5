@@ -10,12 +10,14 @@ type User struct {
 	CreatedAt time.Time `json:"created_at" xml:"created_at"  gorm:"<-"`
 	UpdatedAt time.Time `json:"updated_at" xml:"updated_at"  gorm:"<-"`
 	IsActive  bool      `json:"is_active" xml:"is_active"  gorm:"<-"`
+	GoogleID  string    `json:"google_id" xml:"google_id"  gorm:"<-"`
 }
 
 type UserRepository interface {
 	FindAll() (*[]User, error)
 	FindByID(ID int) (*User, error)
 	FindByEmail(Email string) (*User, error)
+	FindByGoogleID(GoogleID string) (*User, error)
 	Create(user *User) error
 	Update(user *User) error
 	Delete(user *User) error

@@ -20,6 +20,9 @@ func (app *Config) NewRouter() *echo.Echo {
 
 	e.POST("/v1/tokens/refresh", app.BaseHandler.RefreshToken, app.AuthorizationMiddleware())
 
+	e.GET("/v1/users/login/google", app.BaseHandler.Oauth2GoogleLogin)
+	e.GET("/v1/callback/google", app.BaseHandler.Oauth2GoogleCallback)
+
 	e.GET("/v1/comments", app.BaseHandler.ReadComments, app.AuthorizationMiddleware())
 	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment, app.AuthorizationMiddleware())
 	e.POST("/v1/comments/:id", app.BaseHandler.CreateComment, app.AuthorizationMiddleware())

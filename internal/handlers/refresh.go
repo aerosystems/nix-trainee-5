@@ -87,7 +87,7 @@ func (h *BaseHandler) RefreshToken(c echo.Context) error {
 
 	payload := Response{
 		Error:   false,
-		Message: fmt.Sprintf("Logged in user %d", refreshTokenClaims.UserID),
+		Message: fmt.Sprintf("Tokens successfuly refreshed for User %d", refreshTokenClaims.UserID),
 		Data:    tokens,
 	}
 

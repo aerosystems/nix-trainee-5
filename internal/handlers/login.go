@@ -83,7 +83,6 @@ func (h *BaseHandler) Login(c echo.Context) error {
 	// create pair of JWT tokens
 	ts, err := h.tokensRepo.CreateToken(user.ID)
 	if err != nil {
-		fmt.Println("sdsdsd")
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 

@@ -2,19 +2,24 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/myredis"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/pkg/mysql/mygorm"
+
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
 )
 
 const webPort = 8080
 
 type Config struct {
-	BaseHandler *handlers.BaseHandler
-	TokensRepo  models.TokensRepository
+	BaseHandler       *handlers.BaseHandler
+	GoogleOauthConfig *oauth2.Config
+	TokensRepo        models.TokensRepository
 }
 
 // @title NIX Trainee 5-6-7-8 tasks
@@ -38,8 +43,22 @@ func main() {
 	codeRepo := storage.NewCodeRepo(clientGORM)
 	tokensRepo := storage.NewTokensRepo(clientREDIS)
 
+	googleOauthConfig := &oauth2.Config{
+		RedirectURL:  "http://localhost:8080/v1/callback/google",
+		ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
+		ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
+		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
+		Endpoint:     google.Endpoint,
+	}
+
 	app := Config{
-		BaseHandler: handlers.NewBaseHandler(commentRepo, postRepo, userRepo, codeRepo, tokensRepo),
+		BaseHandler: handlers.NewBaseHandler(googleOauthConfig,
+			commentRepo,
+			postRepo,
+			userRepo,
+			codeRepo,
+			tokensRepo,
+		),
 		TokensRepo: tokensRepo,
 	}
 

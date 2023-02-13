@@ -45,6 +45,15 @@ func (r *userRepo) FindByEmail(Email string) (*models.User, error) {
 	return &user, nil
 }
 
+func (r *userRepo) FindByGoogleID(GoogleID string) (*models.User, error) {
+	var user models.User
+	result := r.db.Where("google_id = ?", GoogleID).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
+}
+
 func (r *userRepo) Create(user *models.User) error {
 	result := r.db.Create(&user)
 	if result.Error != nil {
