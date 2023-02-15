@@ -16,14 +16,14 @@ type RefreshTokenRequestBody struct {
 
 // RefreshToken godoc
 // @Summary refresh pair JWT tokens
-// @Tags users
+// @Tags auth
 // @Accept  json
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
 // @Param login body handlers.RefreshTokenRequestBody true "raw request body, should contain Refresh Token"
 // @Param Authorization header string true "should contain Access Token, with the Bearer started"
-// @Success 200 {object} Response
+// @Success 200 {object} Response{data=TokensResponseBody}
 // @Failure 400 {object} Response
 // @Failure 401 {object} Response
 // @Router /tokens/refresh [post]

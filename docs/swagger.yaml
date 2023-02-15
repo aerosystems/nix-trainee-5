@@ -92,6 +92,36 @@ info:
   title: NIX Trainee 5-6-7-8 tasks
   version: "1.0"
 paths:
+  /callback/google:
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: |-
+        in success case - handling data from Google servers
+        than compare state value with Cookies in web browser to protect against CSRF attacks
+        if user with Google ID does not exist - create new User
+        than return pair JWT Tokens
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/handlers.TokensResponseBody'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: callback function for processing Google OAuth2.0 301 Redirect
+      tags:
+      - auth
   /comments:
     get:
       consumes:
@@ -539,7 +569,12 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/handlers.Response'
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/handlers.TokensResponseBody'
+              type: object
         "400":
           description: Bad Request
           schema:
@@ -550,7 +585,7 @@ paths:
             $ref: '#/definitions/handlers.Response'
       summary: refresh pair JWT tokens
       tags:
-      - users
+      - auth
   /users/confirmation:
     post:
       consumes:
@@ -581,7 +616,7 @@ paths:
             $ref: '#/definitions/handlers.Response'
       summary: confirm registration/reset password with 6-digit code from email/sms
       tags:
-      - users
+      - auth
   /users/login:
     post:
       consumes:
@@ -594,6 +629,7 @@ paths:
         - minimum of one digit
         - minimum of one special character
         - minimum 8 characters length
+        Response contain pair JWT tokens, use /tokens/refresh for updating them
       parameters:
       - description: raw request body
         in: body
@@ -624,7 +660,27 @@ paths:
             $ref: '#/definitions/handlers.Response'
       summary: login user by credentionals
       tags:
-      - users
+      - auth
+  /users/login/google:
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: in success case - 301 Redirect into Google Authorization form with
+        setting custom Cookies to protect against CSRF attacks
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: login user by Google OAuth2.0
+      tags:
+      - auth
   /users/logout:
     post:
       consumes:
@@ -654,7 +710,7 @@ paths:
             $ref: '#/definitions/handlers.Response'
       summary: logout user
       tags:
-      - users
+      - auth
   /users/registration:
     post:
       consumes:
@@ -692,5 +748,5 @@ paths:
             $ref: '#/definitions/handlers.Response'
       summary: registration user by credentionals
       tags:
-      - users
+      - auth
 swagger: "2.0"

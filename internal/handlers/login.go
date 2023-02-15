@@ -28,7 +28,7 @@ type TokensResponseBody struct {
 // @Description - minimum of one special character
 // @Description - minimum 8 characters length
 // @Description Response contain pair JWT tokens, use /tokens/refresh for updating them
-// @Tags users
+// @Tags auth
 // @Accept  json
 // @Accept  xml
 // @Produce application/json

@@ -16,7 +16,7 @@ type CodeRequestBoby struct {
 
 // Confirmation godoc
 // @Summary confirm registration/reset password with 6-digit code from email/sms
-// @Tags users
+// @Tags auth
 // @Accept  json
 // @Accept  xml
 // @Produce application/json

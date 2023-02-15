@@ -22,6 +22,49 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/callback/google": {
+            "get": {
+                "description": "in success case - handling data from Google servers\nthan compare state value with Cookies in web browser to protect against CSRF attacks\nif user with Google ID does not exist - create new User\nthan return pair JWT Tokens",
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "callback function for processing Google OAuth2.0 301 Redirect",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/handlers.TokensResponseBody"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/comments": {
             "get": {
                 "consumes": [
@@ -701,7 +744,7 @@ const docTemplate = `{
                     "application/xml"
                 ],
                 "tags": [
-                    "users"
+                    "auth"
                 ],
                 "summary": "refresh pair JWT tokens",
                 "parameters": [
@@ -726,7 +769,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handlers.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/handlers.TokensResponseBody"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
@@ -755,7 +810,7 @@ const docTemplate = `{
                     "application/xml"
                 ],
                 "tags": [
-                    "users"
+                    "auth"
                 ],
                 "summary": "confirm registration/reset password with 6-digit code from email/sms",
                 "parameters": [
@@ -793,7 +848,7 @@ const docTemplate = `{
         },
         "/users/login": {
             "post": {
-                "description": "Password should contain:\n- minimum of one small case letter\n- minimum of one upper case letter\n- minimum of one digit\n- minimum of one special character\n- minimum 8 characters length",
+                "description": "Password should contain:\n- minimum of one small case letter\n- minimum of one upper case letter\n- minimum of one digit\n- minimum of one special character\n- minimum 8 characters length\nResponse contain pair JWT tokens, use /tokens/refresh for updating them",
                 "consumes": [
                     "application/json",
                     "text/xml"
@@ -803,7 +858,7 @@ const docTemplate = `{
                     "application/xml"
                 ],
                 "tags": [
-                    "users"
+                    "auth"
                 ],
                 "summary": "login user by credentionals",
                 "parameters": [
@@ -851,6 +906,34 @@ const docTemplate = `{
                 }
             }
         },
+        "/users/login/google": {
+            "get": {
+                "description": "in success case - 301 Redirect into Google Authorization form with setting custom Cookies to protect against CSRF attacks",
+                "consumes": [
+                    "application/json",
+                    "text/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "login user by Google OAuth2.0",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/users/logout": {
             "post": {
                 "consumes": [
@@ -862,7 +945,7 @@ const docTemplate = `{
                     "application/xml"
                 ],
                 "tags": [
-                    "users"
+                    "auth"
                 ],
                 "summary": "logout user",
                 "parameters": [
@@ -908,7 +991,7 @@ const docTemplate = `{
                     "application/xml"
                 ],
                 "tags": [
-                    "users"
+                    "auth"
                 ],
                 "summary": "registration user by credentionals",
                 "parameters": [

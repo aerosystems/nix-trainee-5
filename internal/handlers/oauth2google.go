@@ -28,6 +28,17 @@ type UserInfo struct {
 	Gender        string `json:"gender"`
 }
 
+// Oauth2GoogleLogin godoc
+// @Summary login user by Google OAuth2.0
+// @Description in success case - 301 Redirect into Google Authorization form with setting custom Cookies to protect against CSRF attacks 
+// @Tags auth
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Success 200
+// @Failure 400 {object} Response
+// @Router /users/login/google [get]
 func (h *BaseHandler) Oauth2GoogleLogin(c echo.Context) error {
 	b := make([]byte, 16)
 	rand.Read(b)
@@ -48,6 +59,20 @@ func (h *BaseHandler) Oauth2GoogleLogin(c echo.Context) error {
 	return c.Redirect(http.StatusMovedPermanently, url)
 }
 
+// Oauth2GoogleCallback godoc
+// @Summary callback function for processing Google OAuth2.0 301 Redirect
+// @Description in success case - handling data from Google servers
+// @Description than compare state value with Cookies in web browser to protect against CSRF attacks
+// @Description if user with Google ID does not exist - create new User
+// @Description than return pair JWT Tokens
+// @Tags auth
+// @Accept  json
+// @Accept  xml
+// @Produce application/json
+// @Produce application/xml
+// @Success 200 {object} Response{data=TokensResponseBody}
+// @Failure 400 {object} Response
+// @Router /callback/google [get]
 func (h *BaseHandler) Oauth2GoogleCallback(c echo.Context) error {
 	oauthstateCookie, err := c.Cookie("oauthstate")
 	if err != nil {

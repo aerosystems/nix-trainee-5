@@ -11,7 +11,7 @@ import (
 
 // Logout godoc
 // @Summary logout user
-// @Tags users
+// @Tags auth
 // @Accept  json
 // @Accept  xml
 // @Produce application/json

@@ -24,7 +24,7 @@ type RegistrationRequestBody struct {
 // @Description - minimum of one digit
 // @Description - minimum of one special character
 // @Description - minimum 8 characters length
-// @Tags users
+// @Tags auth
 // @Accept  json
 // @Accept  xml
 // @Produce application/json
