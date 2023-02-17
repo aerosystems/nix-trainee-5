@@ -8,6 +8,10 @@ type Comment struct {
 	Body   string `json:"body" xml:"body" gorm:"<-" example:"fuga aut est delectus..."`
 }
 
+type MockComment struct {
+	DB map[int]*Comment
+}
+
 type CommentRepository interface {
 	FindAll() (*[]Comment, error)
 	FindByID(ID int) (*Comment, error)
