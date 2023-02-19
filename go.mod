@@ -3,7 +3,9 @@ module github.com/aerosystems/nix-trainee-5-6-7-8
 go 1.19
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/go-redis/redis/v7 v7.4.1
+	github.com/go-test/deep v1.1.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/labstack/echo-jwt/v4 v4.1.0

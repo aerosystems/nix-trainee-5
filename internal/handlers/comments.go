@@ -90,7 +90,7 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Comment ID"
 // @Param Authorization header string true "should contain Access Token, with the Bearer started"
-// @Success 200 {object} Response{data=models.Comment}
+// @Success 201 {object} Response{data=models.Comment}
 // @Failure 400 {object} Response
 // @Failure 401 {object} Response
 // @Failure 404 {object} Response
@@ -138,7 +138,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 		Data:    newComment,
 	}
 
-	return WriteResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusCreated, payload)
 }
 
 // UpdateComment godoc

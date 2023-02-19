@@ -90,7 +90,7 @@ func (h *BaseHandler) ReadPost(c echo.Context) error {
 // @Produce application/xml
 // @Param	id	path	int	true "Post ID"
 // @Param Authorization header string true "should contain Access Token, with the Bearer started"
-// @Success 200 {object} Response{data=models.Post}
+// @Success 201 {object} Response{data=models.Post}
 // @Failure 400 {object} Response
 // @Failure 401 {object} Response
 // @Failure 404 {object} Response
@@ -140,7 +140,7 @@ func (h *BaseHandler) CreatePost(c echo.Context) error {
 		Message: "post with ID " + stringID + " was created successfully",
 		Data:    newPost,
 	}
-	return WriteResponse(c, http.StatusOK, payload)
+	return WriteResponse(c, http.StatusCreated, payload)
 }
 
 // UpdatePost godoc
