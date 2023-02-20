@@ -120,7 +120,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 	}
 
 	newComment := models.Comment{
-		Id:     ID,
+		ID:     ID,
 		PostId: requestPayload.PostId,
 		Name:   requestPayload.Name,
 		Email:  requestPayload.Email,
@@ -180,7 +180,7 @@ func (h *BaseHandler) UpdateComment(c echo.Context) error {
 	}
 
 	newComment := comment
-	newComment.Id = ID
+	newComment.ID = ID
 
 	if requestPayload.PostId != 0 {
 		newComment.PostId = requestPayload.PostId
