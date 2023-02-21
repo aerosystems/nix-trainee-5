@@ -58,7 +58,7 @@ func (s *SuiteComments) AfterTest(_, _ string) {
 	require.NoError(s.T(), s.mock.ExpectationsWereMet())
 }
 
-func TestInitComments(t *testing.T) {
+func TestInitComment(t *testing.T) {
 	suite.Run(t, new(SuiteComments))
 }
 

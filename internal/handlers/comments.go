@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -88,7 +89,7 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
-// @Param	id	path	int	true "Comment ID"
+// @Param comment body models.Comment true "raw request body"
 // @Param Authorization header string true "should contain Access Token, with the Bearer started"
 // @Success 201 {object} Response{data=models.Comment}
 // @Failure 400 {object} Response
@@ -96,31 +97,24 @@ func (h *BaseHandler) ReadComment(c echo.Context) error {
 // @Failure 404 {object} Response
 // @Router /comments/{id} [post]
 func (h *BaseHandler) CreateComment(c echo.Context) error {
-	stringID := c.Param("id")
-
-	ID, err := strconv.Atoi(stringID)
-	if err != nil {
-		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
-	}
-
 	requestPayload := new(models.Comment)
 
-	if err = c.Bind(&requestPayload); err != nil {
+	if err := c.Bind(&requestPayload); err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	comment, err := h.commentRepo.FindByID(ID)
+	comment, err := h.commentRepo.FindByID(requestPayload.ID)
 	if err != nil {
 		return err
 	}
 
 	if *comment != (models.Comment{}) {
-		err := errors.New("comment with ID " + stringID + " exists")
+		err := fmt.Errorf("comment with ID %d exists", requestPayload.ID)
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	newComment := models.Comment{
-		ID:     ID,
+		ID:     requestPayload.ID,
 		PostId: requestPayload.PostId,
 		Name:   requestPayload.Name,
 		Email:  requestPayload.Email,
@@ -134,7 +128,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 
 	payload := Response{
 		Error:   false,
-		Message: "comment with ID " + stringID + " was created successfully",
+		Message: fmt.Sprintf("comment with ID %d was created successfully", requestPayload.ID),
 		Data:    newComment,
 	}
 

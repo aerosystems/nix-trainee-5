@@ -57,7 +57,7 @@ func (s *SuitePosts) AfterTest(_, _ string) {
 	require.NoError(s.T(), s.mock.ExpectationsWereMet())
 }
 
-func TestInitPosts(t *testing.T) {
+func TestInitPost(t *testing.T) {
 	suite.Run(t, new(SuitePosts))
 }
 
