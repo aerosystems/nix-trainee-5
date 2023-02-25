@@ -25,7 +25,7 @@ func (app *Config) NewRouter() *echo.Echo {
 
 	e.GET("/v1/comments", app.BaseHandler.ReadComments, app.AuthorizationMiddleware())
 	e.GET("/v1/comments/:id", app.BaseHandler.ReadComment, app.AuthorizationMiddleware())
-	e.POST("/v1/comments/:id", app.BaseHandler.CreateComment, app.AuthorizationMiddleware())
+	e.POST("/v1/comments", app.BaseHandler.CreateComment, app.AuthorizationMiddleware())
 	e.PATCH("/v1/comments/:id", app.BaseHandler.UpdateComment, app.AuthorizationMiddleware())
 	e.DELETE("/v1/comments/:id", app.BaseHandler.DeleteComment, app.AuthorizationMiddleware())
 

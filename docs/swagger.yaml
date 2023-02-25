@@ -293,11 +293,12 @@ paths:
       - application/json
       - text/xml
       parameters:
-      - description: Comment ID
-        in: path
-        name: id
+      - description: raw request body
+        in: body
+        name: comment
         required: true
-        type: integer
+        schema:
+          $ref: '#/definitions/models.Comment'
       - description: should contain Access Token, with the Bearer started
         in: header
         name: Authorization
@@ -307,8 +308,8 @@ paths:
       - application/json
       - application/xml
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             allOf:
             - $ref: '#/definitions/handlers.Response'
@@ -521,8 +522,8 @@ paths:
       - application/json
       - application/xml
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             allOf:
             - $ref: '#/definitions/handlers.Response'

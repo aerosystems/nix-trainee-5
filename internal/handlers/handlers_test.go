@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -12,6 +13,18 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
+
+type testTable []struct {
+	Name                     string
+	Data                     models.Comment
+	RequestData              models.Comment
+	RequestPath              string
+	RequestBody              string
+	RequestHeaderContentType string
+	RequestHeaderAccept      string
+	ResponseStatusCode       int
+	ResponseBody             string
+}
 
 type Suite struct {
 	suite.Suite
@@ -45,7 +58,7 @@ func (s *Suite) SetupSuite() {
 }
 
 func (s *Suite) AfterTest(_, _ string) {
-	// require.NoError(s.T(), s.mock.ExpectationsWereMet())
+	require.NoError(s.T(), s.mock.ExpectationsWereMet())
 }
 
 func TestInit(t *testing.T) {

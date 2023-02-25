@@ -70,7 +70,6 @@ func (s *SuitePosts) TestFindAllPosts() {
 		WillReturnRows(rows)
 
 	res, err := s.repository.FindAll()
-	s.T().Log("!!!", err)
 
 	require.NoError(s.T(), err)
 	require.Nil(s.T(), deep.Equal(&[]models.Post{s.post}, res))
