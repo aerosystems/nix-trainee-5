@@ -49,40 +49,40 @@ var tableDeleteComment = testTable{
 		ResponseStatusCode:       http.StatusOK,
 		ResponseBody:             `<?xml version="1.0" encoding="UTF-8"?><Response><error>false</error><message>comment with ID 301 was deleted successfully</message></Response>`,
 	},
-	//{
-	//	Name: "FAIL CASE: Delete comment by id, with JSON data. Comment with id in Request param Not Found",
-	//	Data: models.Comment{
-	//		ID:     301,
-	//		PostId: 61,
-	//		Name:   "quia voluptatem sunt voluptate ut ipsa",
-	//		Email:  "Lindsey@caitlyn.net",
-	//		Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
-	//	},
-	//	RequestData: models.Comment{
-	//		ID: 302,
-	//	},
-	//	RequestHeaderContentType: echo.MIMEApplicationJSON,
-	//	RequestHeaderAccept:      echo.MIMEApplicationJSON,
-	//	ResponseStatusCode:       http.StatusNotFound,
-	//	ResponseBody:             `{"error":true,"message":"comment with ID 302 does not exist"}`,
-	//},
-	//{
-	//	Name: "FAIL CASE: Delete comment by id, with XML data. Comment with id in Request param Not Found",
-	//	Data: models.Comment{
-	//		ID:     301,
-	//		PostId: 61,
-	//		Name:   "quia voluptatem sunt voluptate ut ipsa",
-	//		Email:  "Lindsey@caitlyn.net",
-	//		Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
-	//	},
-	//	RequestData: models.Comment{
-	//		ID: 302,
-	//	},
-	//	RequestHeaderContentType: echo.MIMEApplicationXML,
-	//	RequestHeaderAccept:      echo.MIMEApplicationXML,
-	//	ResponseStatusCode:       http.StatusNotFound,
-	//	ResponseBody:             `<?xml version="1.0" encoding="UTF-8"?><Response><error>true</error><message>comment with ID 302 does not exist</message></Response>`,
-	//},
+	{
+		Name: "FAIL CASE: Delete comment by id, with JSON data. Comment with id in Request param Not Found",
+		Data: models.Comment{
+			ID:     301,
+			PostId: 61,
+			Name:   "quia voluptatem sunt voluptate ut ipsa",
+			Email:  "Lindsey@caitlyn.net",
+			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		},
+		RequestData: models.Comment{
+			ID: 302,
+		},
+		RequestHeaderContentType: echo.MIMEApplicationJSON,
+		RequestHeaderAccept:      echo.MIMEApplicationJSON,
+		ResponseStatusCode:       http.StatusNotFound,
+		ResponseBody:             `{"error":true,"message":"comment with ID 302 does not exist"}`,
+	},
+	{
+		Name: "FAIL CASE: Delete comment by id, with XML data. Comment with id in Request param Not Found",
+		Data: models.Comment{
+			ID:     301,
+			PostId: 61,
+			Name:   "quia voluptatem sunt voluptate ut ipsa",
+			Email:  "Lindsey@caitlyn.net",
+			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		},
+		RequestData: models.Comment{
+			ID: 302,
+		},
+		RequestHeaderContentType: echo.MIMEApplicationXML,
+		RequestHeaderAccept:      echo.MIMEApplicationXML,
+		ResponseStatusCode:       http.StatusNotFound,
+		ResponseBody:             `<?xml version="1.0" encoding="UTF-8"?><Response><error>true</error><message>comment with ID 302 does not exist</message></Response>`,
+	},
 }
 
 func (s *Suite) TestDeleteComment() {
@@ -92,20 +92,19 @@ func (s *Suite) TestDeleteComment() {
 		switch t.ResponseStatusCode {
 		case http.StatusOK:
 			s.mock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `comments` WHERE `comments`.`id` = ?")).
-				WithArgs(t.RequestData.ID).
+				WithArgs(t.Data.ID).
 				WillReturnRows(sqlmock.NewRows([]string{"id", "post_id", "name", "email", "body"}).
 					AddRow(t.Data.ID, t.Data.PostId, t.Data.Name, t.Data.Email, t.Data.Body))
+			s.mock.ExpectBegin()
+			s.mock.ExpectExec(regexp.QuoteMeta("DELETE FROM `comments` WHERE `comments`.`id` = ?")).
+				WithArgs(t.RequestData.ID).
+				WillReturnResult(sqlmock.NewResult(int64(t.RequestData.ID), 1))
+			s.mock.ExpectCommit()
 		case http.StatusNotFound:
 			s.mock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `comments` WHERE `comments`.`id` = ?")).
 				WithArgs(t.RequestData.ID).
 				WillReturnError(gorm.ErrRecordNotFound)
 		}
-
-		s.mock.ExpectBegin()
-		s.mock.ExpectExec(regexp.QuoteMeta("DELETE FROM `comments` WHERE `comments`.`id` = ?")).
-			WithArgs(t.RequestData.ID).
-			WillReturnResult(sqlmock.NewResult(int64(t.RequestData.ID), 1))
-		s.mock.ExpectCommit()
 
 		e := echo.New()
 		req := httptest.NewRequest(http.MethodDelete, "/", strings.NewReader(""))

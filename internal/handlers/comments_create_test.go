@@ -68,6 +68,28 @@ var tableCreateComment = testTable{
 		ResponseStatusCode:       http.StatusBadRequest,
 		ResponseBody:             `{"error":true,"message":"comment with ID 302 exists"}`,
 	},
+	{
+		Name: "FAIL CASE: Create Comment by XML Request Body, if Comment already exists",
+		Data: models.Comment{
+			ID:     302,
+			PostId: 61,
+			Name:   "quia voluptatem sunt voluptate ut ipsa",
+			Email:  "Lindsey@caitlyn.net",
+			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		},
+		RequestData: models.Comment{
+			ID:     302,
+			PostId: 61,
+			Name:   "quia voluptatem sunt voluptate ut ipsa",
+			Email:  "Lindsey@caitlyn.net",
+			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		},
+		RequestBody:              `<data><id>302</id><postId>61</postId><name>quia voluptatem sunt voluptate ut ipsa</name><email>Lindsey@caitlyn.net</email><body>fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi</body></data>`,
+		RequestHeaderContentType: echo.MIMEApplicationXML,
+		RequestHeaderAccept:      echo.MIMEApplicationXML,
+		ResponseStatusCode:       http.StatusBadRequest,
+		ResponseBody:             `<?xml version="1.0" encoding="UTF-8"?><Response><error>true</error><message>comment with ID 302 exists</message></Response>`,
+	},
 }
 
 func (s *Suite) TestCreateComment() {
