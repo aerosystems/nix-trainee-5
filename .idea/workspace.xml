@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e88cfd5-73f4-42fd-a362-cf7a54742384" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_delete.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_read_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/nix-trainee-5-6-7-8.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nix-trainee-5-6-7-8.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_create.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_create.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_create_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_create_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_delete_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_delete_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_read.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_read.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_read_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_read_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_update_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_update_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/handlers_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/handlers_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_read.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///opt/homebrew/Cellar/go/1.19.2/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/internal/handlers/posts_read.go" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MFcYNjw9sJaDvN2UTy5gNXlnCg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/art_k0st",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="RunManager" selected="Go Test.TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers">
+    <configuration name="TestReadComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <parameters value=" -testify.m ^TestReadComment$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$/^\QTestReadComment\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestReadComments in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <parameters value=" -testify.m ^TestReadComments$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$/^\QTestReadComments\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestReadPosts in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <parameters value=" -testify.m ^TestReadPosts$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$/^\QTestReadPosts\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <parameters value=" -testify.m ^TestUpdateComment$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$/^\QTestUpdateComment\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="handlers_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <package value="nix-trainee-5-6-7-8" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/internal/handlers/handlers_test.go" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.handlers_test.go" />
+        <item itemvalue="Go Test.TestReadComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestReadComments in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestReadPosts in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
