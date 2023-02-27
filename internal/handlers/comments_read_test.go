@@ -16,7 +16,7 @@ import (
 
 var tableReadComments = testTable{
 	{
-		Name: "SUCCESS CASE: Read comment by id, with JSON data",
+		Name: "SUCCESS CASE: Read all comments, with JSON data",
 		Data: DataStruct{
 			Comment: models.Comment{
 				ID:     301,
@@ -35,7 +35,7 @@ var tableReadComments = testTable{
 		ResponseBody:             `{"error":false,"message":"all comments with ID were found successfully","data":[{"id":301,"postId":61,"name":"quia voluptatem sunt voluptate ut ipsa","email":"Lindsey@caitlyn.net","body":"fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi"}]}`,
 	},
 	{
-		Name: "SUCCESS CASE: Read comment by id, with XML data",
+		Name: "SUCCESS CASE: Read all comments, with XML data",
 		Data: DataStruct{
 			Comment: models.Comment{
 				ID:     301,
@@ -54,15 +54,9 @@ var tableReadComments = testTable{
 		ResponseBody:             `<?xml version="1.0" encoding="UTF-8"?><Response><error>false</error><message>all comments with ID were found successfully</message><data><id>301</id><postId>61</postId><name>quia voluptatem sunt voluptate ut ipsa</name><email>Lindsey@caitlyn.net</email><body>fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi</body></data></Response>`,
 	},
 	{
-		Name: "FAIL CASE: Read comment by id, with JSON data. Comments do not exist",
+		Name: "FAIL CASE: Read all comments, with JSON data. Comments do not exist",
 		Data: DataStruct{
-			Comment: models.Comment{
-				ID:     301,
-				PostId: 61,
-				Name:   "quia voluptatem sunt voluptate ut ipsa",
-				Email:  "Lindsey@caitlyn.net",
-				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
-			},
+			Comment: models.Comment{},
 		},
 		NewData: NewDataStruct{
 			Comment: models.Comment{},
@@ -73,15 +67,9 @@ var tableReadComments = testTable{
 		ResponseBody:             `{"error":true,"message":"comments do not exist"}`,
 	},
 	{
-		Name: "FAIL CASE: Read comment by id, with XML data. Comments do not exist",
+		Name: "FAIL CASE: Read all comments, with XML data. Comments do not exist",
 		Data: DataStruct{
-			Comment: models.Comment{
-				ID:     301,
-				PostId: 61,
-				Name:   "quia voluptatem sunt voluptate ut ipsa",
-				Email:  "Lindsey@caitlyn.net",
-				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
-			},
+			Comment: models.Comment{},
 		},
 		NewData: NewDataStruct{
 			Comment: models.Comment{},

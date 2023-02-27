@@ -5,22 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e88cfd5-73f4-42fd-a362-cf7a54742384" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_create.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_delete.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_read_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_update.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nix-trainee-5-6-7-8.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nix-trainee-5-6-7-8.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_create.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_create.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_create_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_create_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_delete_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_delete_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_read.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_read.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_create_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_delete_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/posts_update_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/app/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/app/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/handlers/comments_read_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_read_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/comments_update_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/comments_update_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/handlers/handlers_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/handlers_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_read.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/posts_create.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_create.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/posts_read.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_read.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/posts_read_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_read_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/posts_update.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/posts_update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service.bin" beforeDir="false" afterPath="$PROJECT_DIR$/post-service.bin" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,44 +64,31 @@
     "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Test.TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers">
-    <configuration name="TestReadComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.handlers_test.go">
+    <configuration name="TestCreatePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nix-trainee-5-6-7-8" />
       <working_directory value="$PROJECT_DIR$/internal/handlers" />
-      <parameters value=" -testify.m ^TestReadComment$" />
+      <parameters value=" -testify.m ^TestCreatePost$" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestInit\E$/^\QTestReadComment\E$" />
+      <pattern value="^\QTestInit\E$/^\QTestCreatePost\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestReadComments in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestDeletePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nix-trainee-5-6-7-8" />
       <working_directory value="$PROJECT_DIR$/internal/handlers" />
-      <parameters value=" -testify.m ^TestReadComments$" />
+      <parameters value=" -testify.m ^TestDeletePost$" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestInit\E$/^\QTestReadComments\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestReadPosts in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="nix-trainee-5-6-7-8" />
-      <working_directory value="$PROJECT_DIR$/internal/handlers" />
-      <parameters value=" -testify.m ^TestReadPosts$" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestInit\E$/^\QTestReadPosts\E$" />
+      <pattern value="^\QTestInit\E$/^\QTestDeletePost\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -120,6 +104,19 @@
       <pattern value="^\QTestInit\E$/^\QTestUpdateComment\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestUpdatePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nix-trainee-5-6-7-8" />
+      <working_directory value="$PROJECT_DIR$/internal/handlers" />
+      <parameters value=" -testify.m ^TestUpdatePost$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestInit\E$/^\QTestUpdatePost\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="handlers_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nix-trainee-5-6-7-8" />
       <working_directory value="$PROJECT_DIR$/internal/handlers" />
@@ -133,11 +130,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
         <item itemvalue="Go Test.handlers_test.go" />
-        <item itemvalue="Go Test.TestReadComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
-        <item itemvalue="Go Test.TestReadComments in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
-        <item itemvalue="Go Test.TestReadPosts in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestUpdatePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestUpdateComment in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestCreatePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
+        <item itemvalue="Go Test.TestDeletePost in github.com/aerosystems/nix-trainee-5-6-7-8/internal/handlers" />
       </list>
     </recent_temporary>
   </component>
@@ -147,5 +144,8 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/nix_trainee_5_6_7_8$handlers_test_go.out" NAME="handlers_test.go Coverage Results" MODIFIED="1677521326618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -25,7 +25,7 @@ import (
 func (h *BaseHandler) ReadPosts(c echo.Context) error {
 	posts, err := h.postRepo.FindAll()
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	if len(*posts) == 0 {
@@ -65,7 +65,7 @@ func (h *BaseHandler) ReadPost(c echo.Context) error {
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	if *post == (models.Post{}) {

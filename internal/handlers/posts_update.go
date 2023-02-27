@@ -30,11 +30,7 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	var requestPayload struct {
-		UserID int    `json:"userId" xml:"userId"`
-		Title  string `json:"title" xml:"title"`
-		Body   string `json:"body" xml:"body"`
-	}
+	requestPayload := new(models.Post)
 
 	if err = c.Bind(&requestPayload); err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
@@ -42,11 +38,11 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 
 	post, err := h.postRepo.FindByID(ID)
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	if *post == (models.Post{}) {
-		err := errors.New("post with ID " + stringID + "does not exists")
+		err := errors.New("post with ID " + stringID + " does not exists")
 		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
@@ -65,7 +61,7 @@ func (h *BaseHandler) UpdatePost(c echo.Context) error {
 
 	err = h.postRepo.Update(newPost)
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	payload := Response{
