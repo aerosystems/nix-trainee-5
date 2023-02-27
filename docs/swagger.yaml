@@ -163,6 +163,46 @@ paths:
       summary: get all comments
       tags:
       - comments
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: raw request body
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/models.Comment'
+      - description: should contain Access Token, with the Bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Comment'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: create comment by ID
+      tags:
+      - comments
   /comments/{id}:
     delete:
       consumes:
@@ -288,50 +328,6 @@ paths:
       summary: particular update comment by ID
       tags:
       - comments
-    post:
-      consumes:
-      - application/json
-      - text/xml
-      parameters:
-      - description: raw request body
-        in: body
-        name: comment
-        required: true
-        schema:
-          $ref: '#/definitions/models.Comment'
-      - description: should contain Access Token, with the Bearer started
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      - application/xml
-      responses:
-        "201":
-          description: Created
-          schema:
-            allOf:
-            - $ref: '#/definitions/handlers.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.Comment'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/handlers.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/handlers.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/handlers.Response'
-      summary: create comment by ID
-      tags:
-      - comments
   /posts:
     get:
       consumes:
@@ -371,6 +367,45 @@ paths:
           schema:
             $ref: '#/definitions/handlers.Response'
       summary: get all posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: should contain Access Token, with the Bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/handlers.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: create post by ID
       tags:
       - posts
   /posts/{id}:
@@ -503,49 +538,6 @@ paths:
       summary: particular update post by ID
       tags:
       - posts
-    post:
-      consumes:
-      - application/json
-      - text/xml
-      parameters:
-      - description: Post ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: should contain Access Token, with the Bearer started
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      - application/xml
-      responses:
-        "201":
-          description: Created
-          schema:
-            allOf:
-            - $ref: '#/definitions/handlers.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.Post'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/handlers.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/handlers.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/handlers.Response'
-      summary: create post by ID
-      tags:
-      - posts
   /tokens/refresh:
     post:
       consumes:
@@ -659,7 +651,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
-      summary: login user by credentionals
+      summary: login user by credentials
       tags:
       - auth
   /users/login/google:

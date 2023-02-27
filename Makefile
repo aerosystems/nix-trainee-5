@@ -29,12 +29,16 @@ build:
 start:
 	go run ./cmd/app/*
 	
-## doc: genereting Swagger Docs
+## doc: generating Swagger Docs
 doc:
-	@echo "Stopping genereting Swagger Docs..."
+	@echo "Stopping generating Swagger Docs..."
 	swag init -g ./cmd/app/* --output ./docs
 	@echo "Swagger Docs prepared, look at /docs"
 
+## init: run this command once for prepare MySQL database
+init:
+	@echo "Creating Database schema..."
+	docker exec -i mysql mysql -uroot -proot < migrations/init-001.sql
 
 ## help: displays help
 help: Makefile

@@ -66,7 +66,6 @@ func (s *Suite) SetupSuite() {
 
 	s.basehandler.commentRepo = storage.NewCommentRepo(s.DB)
 	s.basehandler.postRepo = storage.NewPostRepo(s.DB)
-
 }
 
 func (s *Suite) AfterTest(_, _ string) {

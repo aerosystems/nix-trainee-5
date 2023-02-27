@@ -12,7 +12,7 @@ import (
 
 type RefreshTokenRequestBody struct {
 	RefreshToken string `json:"refresh_token" xml:"refresh_token" example:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"`
-} 
+}
 
 // RefreshToken godoc
 // @Summary refresh pair JWT tokens
@@ -80,9 +80,9 @@ func (h *BaseHandler) RefreshToken(c echo.Context) error {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	tokens := map[string]string{
-		"access_token":  ts.AccessToken,
-		"refresh_token": ts.RefreshToken,
+	tokens := TokensResponseBody{
+		AccessToken:  ts.AccessToken,
+		RefreshToken: ts.RefreshToken,
 	}
 
 	payload := Response{

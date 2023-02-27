@@ -58,8 +58,8 @@ func (h *BaseHandler) Login(c echo.Context) error {
 	// Minimum of one digit
 	// Minimum of one special character
 	// Minimum 8 characters length
-	err = helpers.ValidatePassword(requestPayload.Password)
-	if err != nil {
+
+	if err := helpers.ValidatePassword(requestPayload.Password); err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
@@ -87,8 +87,7 @@ func (h *BaseHandler) Login(c echo.Context) error {
 	}
 
 	// add refresh token UUID to cache
-	err = h.tokensRepo.CreateCacheKey(user.ID, ts)
-	if err != nil {
+	if err = h.tokensRepo.CreateCacheKey(user.ID, ts); err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
