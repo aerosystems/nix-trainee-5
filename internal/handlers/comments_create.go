@@ -38,7 +38,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 	if requestPayload.ID != 0 {
 		comment, err := h.commentRepo.FindByID(requestPayload.ID)
 		if err != nil {
-			return err
+			return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 		}
 
 		if *comment != (models.Comment{}) {
@@ -51,7 +51,7 @@ func (h *BaseHandler) CreateComment(c echo.Context) error {
 
 	err := h.commentRepo.Create(&newComment)
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
 	payload := Response{
