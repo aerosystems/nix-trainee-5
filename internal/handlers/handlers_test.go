@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"database/sql"
+	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/models"
 	"github.com/aerosystems/nix-trainee-5-6-7-8/internal/storage"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -14,10 +14,20 @@ import (
 	"gorm.io/gorm/logger"
 )
 
+type DataStruct struct {
+	Post    models.Post
+	Comment models.Comment
+}
+
+type NewDataStruct struct {
+	Post    models.Post
+	Comment models.Comment
+}
+
 type testTable []struct {
 	Name                     string
-	Data                     models.Comment
-	RequestData              models.Comment
+	Data                     DataStruct
+	NewData                  NewDataStruct
 	RequestPath              string
 	RequestBody              string
 	RequestHeaderContentType string
@@ -55,6 +65,8 @@ func (s *Suite) SetupSuite() {
 	require.NoError(s.T(), err)
 
 	s.basehandler.commentRepo = storage.NewCommentRepo(s.DB)
+	s.basehandler.postRepo = storage.NewPostRepo(s.DB)
+
 }
 
 func (s *Suite) AfterTest(_, _ string) {

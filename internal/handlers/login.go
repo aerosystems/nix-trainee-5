@@ -20,7 +20,7 @@ type TokensResponseBody struct {
 }
 
 // Login godoc
-// @Summary login user by credentionals
+// @Summary login user by credentials
 // @Description Password should contain:
 // @Description - minimum of one small case letter
 // @Description - minimum of one upper case letter
@@ -80,7 +80,7 @@ func (h *BaseHandler) Login(c echo.Context) error {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	// create pair of JWT tokens
+	// create pair JWT tokens
 	ts, err := h.tokensRepo.CreateToken(user.ID)
 	if err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))

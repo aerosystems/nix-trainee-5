@@ -25,7 +25,7 @@ import (
 func (h *BaseHandler) ReadComments(c echo.Context) error {
 	comments, err := h.commentRepo.FindAll()
 	if err != nil {
-		return err
+		return WriteResponse(c, http.StatusNotFound, NewErrorPayload(err))
 	}
 
 	if len(*comments) == 0 {
