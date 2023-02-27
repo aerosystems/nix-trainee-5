@@ -1,0 +1,1092 @@
+{
+	"info": {
+		"_postman_id": "3fe78206-92e5-4600-8512-c9e484714f1d",
+		"name": "post-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14852009"
+	},
+	"item": [
+		{
+			"name": "JSON",
+			"item": [
+				{
+					"name": "/v1/comments",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjVlOTU4ZDI4LWM3NDEtNGFkZi1hZmJkLTY4YzY1NWExM2VhMSIsImV4cCI6MTY3NzMzMzIxNCwidXNlcl9pZCI6Mn0.dQVqTiVhoWm6Z71KEtcKzgytqsFyCV3BtRWh5dt600Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImJiNjU3NDIyLTYyZWYtNGIwMy05NjFiLWZjYmY1NTY2NTQwNSIsImV4cCI6MTY3NzUzNTIyOCwidXNlcl9pZCI6Nn0.x17LtGoFr3h196Ldg_Fr4bykgxfUS-cJLk-3Y7_BKwQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2050,\n    \"postId\": 61,\n    \"name\": \"excepturi itaque laudantium reiciendis dolorem\",\n    \"email\": \"Gregory.Kutch@shawn.info\",\n    \"body\": \"sit nesciunt id vitae ut itaque sapiente\\nneque in at consequuntur perspiciatis dicta consequatur velit\\nfacilis iste ut error sed\\nin sequi expedita autem\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjVlOTU4ZDI4LWM3NDEtNGFkZi1hZmJkLTY4YzY1NWExM2VhMSIsImV4cCI6MTY3NzMzMzIxNCwidXNlcl9pZCI6Mn0.dQVqTiVhoWm6Z71KEtcKzgytqsFyCV3BtRWh5dt600Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"postId\": 61,\n        \"name\": \"excepturi itaque laudantium reiciendis dolorem\",\n        \"email\": \"Gregory.Kutch@shawn.info\",\n        \"body\": \"sit nesciunt id vitae ut itaque sapiente\\nneque in at consequuntur perspiciatis dicta consequatur velit\\nfacilis iste ut error sed\\nin sequi expedita autem\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjM5NWVmZjc3LTBiNTQtNGNkZS04MjlkLTZkMDM0Y2I0M2RkZSIsImV4cCI6MTY3NzQzMDMzNCwidXNlcl9pZCI6Mn0.4AlUC_v60ROavZMjrUTOfUQL1ilIkKnC1s7nVqEtzuQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 7,\n    \"title\": \"voluptatem doloribus consectetur est ut ducimus\",\n    \"body\": \"ab nemo optio odio delectus tenetur corporis similique nobis repellendus rerum omnis facilis vero blanditiis debitis in nesciunt doloribus dicta dolores magnam minus velit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjBjOWFlNWZjLWY4NjgtNDFiNS1hYmJhLWEwOGI4OGEyMWM0MyIsImV4cCI6MTY3NzUxOTg3MSwidXNlcl9pZCI6Mn0.T_-K021GpyUEmkhrEW320og3k0Dd6gmC_V9jyOZ_2Vg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 777,\n    \"title\": \"voluptatem doloribus consectetur est ut ducimus\",\n    \"body\": \"ab nemo optio odio delectus tenetur corporis similique nobis repellendus rerum omnis facilis vero blanditiis debitis in nesciunt doloribus dicta dolores magnam minus velit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/registration",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"777qwertwy2w4+fsdf@googlemail.com\",\n    \"password\": \"Qwerty12#\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/registration",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/confirmation",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": 625138\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/confirmation",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"confirmation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"7771qwertwy2w4+fsdf@googlemail.com\",\n    \"password\": \"Qwerty12#\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/tokens/refresh",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIwYTMxZjY0LTExNDAtNGE1Mi1hYmRiLTU1NWE3MTI4NzZjMiIsImV4cCI6MTY3NjE1NTQ1NCwidXNlcl9pZCI6Mn0.YbNE_43AqEVJfoFPtQIX4F2xyTJt6DQ7VaLpFCZhqs0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzQ0MTQ3MzksInJlZnJlc2hfdXVpZCI6IjQ2OGU1M2RlLTY5NzUtNDYwMC1iYmVmLWM4ZDIyMjlkNmRjNCIsInVzZXJfaWQiOjI0fQ.k5dBPD0irUT_b9cFkWvcpx1Pmf82PfdasLRAKzAROUw\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/tokens/refresh",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"tokens",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjNlMzAwNzQ0LWYyODQtNDcxYS1iZGViLTU3YTdlMjNmMTk5NCIsImV4cCI6MTY3NjExMTE5NCwidXNlcl9pZCI6Mn0.SMXYIBLC2K5Dfl85E3v-WtlYgB0V5cgY2Hk6fv7PD-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/users/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "XML",
+			"item": [
+				{
+					"name": "/v1/comments",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<comment>\n    <postId>61</postId>\n    <name>id voluptatibus voluptas occaecati quia sunt eveniet et eius</name>\n    <email>Tiana@jeramie.tv</email>\n    <body>dolore maxime saepe dolor asperiores cupiditate nisi nesciunt&#xA;vitae tempora ducimus vel eos perferendis&#xA;fuga sequi numquam blanditiis sit sed inventore et&#xA;ut possimus soluta voluptas nihil aliquid sed earum</body>\n</comment>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<comment>\n    <postId>77761</postId>\n    <name>id voluptatibus voluptas occaecati quia sunt eveniet et eius</name>\n    <email>Tiana@jeramie.tv</email>\n</comment>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/comments/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/comments/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"comments",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjgyY2RhMTQ4LTYzYjgtNDNjNy05OWU4LTkyNDI4M2JmYzQwNyIsImV4cCI6MTY3NzQzMTIxMywidXNlcl9pZCI6Mn0.U745e_xEt7q-Ug3fZQ_r_aiSmu-65NbdKuH7lNC7EcE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<post>\n    <id>66</id>\n    <userId>7</userId>\n    <title>voluptatem doloribus consectetur est ut ducimus</title>\n    <body>dolore maxime saepe dolor asperiores cupiditate nisi nesciunt&#xA;vitae tempora ducimus vel eos perferendis&#xA;fuga sequi numquam blanditiis sit sed inventore et&#xA;ut possimus soluta voluptas nihil aliquid sed earum</body>\n</post>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImJlMzViODg0LWRlMDYtNDdlYS1iOGU2LTY2ZDNhOTI1NzdmNiIsImV4cCI6MTY3NzUyMDk1NiwidXNlcl9pZCI6Mn0.-fIO926V7Nl_7IkD_XW9c8mDkW2B82bGIv8Hwr6ApgM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<post>\n    <userId>8</userId>\n    <title>voluptatem doloribus consectetur est ut ducimus</title>\n    <body>ab nemo optio odio delectus tenetur corporis similique nobis repellendus rerum omnis facilis vero blanditiis debitis in nesciunt doloribus dicta dolores magnam minus velit</body>\n</post>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/posts/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/posts/999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"posts",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/registration",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<user>\n    <email>7771qwertwy2w4+fsdf@googlemail.com</email>\n    <password>Qwerty12#</password>\n</user>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/registration",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/confirmation",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<user>\n    <code>772312</code>\n</user>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/confirmation",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"confirmation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<user>\n    <email>777qwertwy2w4+fsdf@googlemail.com</email>\n    <password>Qwerty12#</password>\n</user>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/tokens/refresh",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImJmYjgxZDZhLTczOGMtNDFkMC1hOTgyLWQwZTE1NDI2NTJiNSIsImV4cCI6MTY3NzUzODcxNywidXNlcl9pZCI6N30.8asEkwipTvaqEEeBsllamaa5vCNVCFF7LgY7GRyp4-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tokens>\n<refresh_token>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzgxNDI2MTcsInJlZnJlc2hfdXVpZCI6IjdjMTg5YmQwLWM0ZWQtNGFlMC05OGZjLTlhOGQ1ZmQ3ZjRjZSIsInVzZXJfaWQiOjd9.nqxXiVUqY3rxfNsVMwR9SVmdUcAMFRMtV8TTqJnXOFI</refresh_token>\n</tokens>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/tokens/refresh",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"tokens",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v1/users/logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImVkY2NiYzNmLWE5M2MtNGZkMy1iZmRlLTQ2MTExODcxYzRiZSIsImV4cCI6MTY3NzUzODc1NywidXNlcl9pZCI6N30.jmBqXuWhPbXOxa4J0TliNsJDz0c8wLl5e9dEAgAUPpc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/users/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjM1NzVmM2Y2LWMzZDUtNDQxZS1hZmFiLWU2MzQ5ZDMyNzMyNSIsImV4cCI6MTY3NjUwMzAxMSwidXNlcl9pZCI6Mn0.pjkpwVIxQLk7cYkEOxHUay9hLAb1W-aR1prvzPl3KN0",
+			"type": "string"
+		}
+	]
+}
