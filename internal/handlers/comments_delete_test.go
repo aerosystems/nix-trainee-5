@@ -17,15 +17,19 @@ import (
 var tableDeleteComment = testTable{
 	{
 		Name: "SUCCESS CASE: Delete comment by id, with JSON data",
-		Data: models.Comment{
-			ID:     301,
-			PostId: 61,
-			Name:   "quia voluptatem sunt voluptate ut ipsa",
-			Email:  "Lindsey@caitlyn.net",
-			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		Data: DataStruct{
+			Comment: models.Comment{
+				ID:     301,
+				PostId: 61,
+				Name:   "quia voluptatem sunt voluptate ut ipsa",
+				Email:  "Lindsey@caitlyn.net",
+				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+			},
 		},
-		RequestData: models.Comment{
-			ID: 301,
+		NewData: NewDataStruct{
+			Comment: models.Comment{
+				ID: 301,
+			},
 		},
 		RequestHeaderContentType: echo.MIMEApplicationJSON,
 		RequestHeaderAccept:      echo.MIMEApplicationJSON,
@@ -34,15 +38,19 @@ var tableDeleteComment = testTable{
 	},
 	{
 		Name: "SUCCESS CASE: Delete comment by id, with XML data",
-		Data: models.Comment{
-			ID:     301,
-			PostId: 61,
-			Name:   "quia voluptatem sunt voluptate ut ipsa",
-			Email:  "Lindsey@caitlyn.net",
-			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		Data: DataStruct{
+			Comment: models.Comment{
+				ID:     301,
+				PostId: 61,
+				Name:   "quia voluptatem sunt voluptate ut ipsa",
+				Email:  "Lindsey@caitlyn.net",
+				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+			},
 		},
-		RequestData: models.Comment{
-			ID: 301,
+		NewData: NewDataStruct{
+			Comment: models.Comment{
+				ID: 301,
+			},
 		},
 		RequestHeaderContentType: echo.MIMEApplicationXML,
 		RequestHeaderAccept:      echo.MIMEApplicationXML,
@@ -51,15 +59,19 @@ var tableDeleteComment = testTable{
 	},
 	{
 		Name: "FAIL CASE: Delete comment by id, with JSON data. Comment with id in Request param Not Found",
-		Data: models.Comment{
-			ID:     301,
-			PostId: 61,
-			Name:   "quia voluptatem sunt voluptate ut ipsa",
-			Email:  "Lindsey@caitlyn.net",
-			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		Data: DataStruct{
+			Comment: models.Comment{
+				ID:     301,
+				PostId: 61,
+				Name:   "quia voluptatem sunt voluptate ut ipsa",
+				Email:  "Lindsey@caitlyn.net",
+				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+			},
 		},
-		RequestData: models.Comment{
-			ID: 302,
+		NewData: NewDataStruct{
+			Comment: models.Comment{
+				ID: 302,
+			},
 		},
 		RequestHeaderContentType: echo.MIMEApplicationJSON,
 		RequestHeaderAccept:      echo.MIMEApplicationJSON,
@@ -68,15 +80,19 @@ var tableDeleteComment = testTable{
 	},
 	{
 		Name: "FAIL CASE: Delete comment by id, with XML data. Comment with id in Request param Not Found",
-		Data: models.Comment{
-			ID:     301,
-			PostId: 61,
-			Name:   "quia voluptatem sunt voluptate ut ipsa",
-			Email:  "Lindsey@caitlyn.net",
-			Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+		Data: DataStruct{
+			Comment: models.Comment{
+				ID:     301,
+				PostId: 61,
+				Name:   "quia voluptatem sunt voluptate ut ipsa",
+				Email:  "Lindsey@caitlyn.net",
+				Body:   "fuga aut est delectus earum optio impedit qui excepturi iusto consequatur deserunt soluta sunt et autem neque dolor ut saepe dolores assumenda ipsa eligendi",
+			},
 		},
-		RequestData: models.Comment{
-			ID: 302,
+		NewData: NewDataStruct{
+			Comment: models.Comment{
+				ID: 302,
+			},
 		},
 		RequestHeaderContentType: echo.MIMEApplicationXML,
 		RequestHeaderAccept:      echo.MIMEApplicationXML,
@@ -92,17 +108,17 @@ func (s *Suite) TestDeleteComment() {
 		switch t.ResponseStatusCode {
 		case http.StatusOK:
 			s.mock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `comments` WHERE `comments`.`id` = ?")).
-				WithArgs(t.Data.ID).
+				WithArgs(t.Data.Comment.ID).
 				WillReturnRows(sqlmock.NewRows([]string{"id", "post_id", "name", "email", "body"}).
-					AddRow(t.Data.ID, t.Data.PostId, t.Data.Name, t.Data.Email, t.Data.Body))
+					AddRow(t.Data.Comment.ID, t.Data.Comment.PostId, t.Data.Comment.Name, t.Data.Comment.Email, t.Data.Comment.Body))
 			s.mock.ExpectBegin()
 			s.mock.ExpectExec(regexp.QuoteMeta("DELETE FROM `comments` WHERE `comments`.`id` = ?")).
-				WithArgs(t.RequestData.ID).
-				WillReturnResult(sqlmock.NewResult(int64(t.RequestData.ID), 1))
+				WithArgs(t.NewData.Comment.ID).
+				WillReturnResult(sqlmock.NewResult(int64(t.NewData.Comment.ID), 1))
 			s.mock.ExpectCommit()
 		case http.StatusNotFound:
 			s.mock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `comments` WHERE `comments`.`id` = ?")).
-				WithArgs(t.RequestData.ID).
+				WithArgs(t.NewData.Comment.ID).
 				WillReturnError(gorm.ErrRecordNotFound)
 		}
 
@@ -114,7 +130,7 @@ func (s *Suite) TestDeleteComment() {
 		c := e.NewContext(req, rec)
 		c.SetPath("/comments/:id")
 		c.SetParamNames("id")
-		c.SetParamValues(strconv.Itoa(t.RequestData.ID))
+		c.SetParamValues(strconv.Itoa(t.NewData.Comment.ID))
 
 		if assert.NoError(s.T(), s.basehandler.DeleteComment(c)) {
 			assert.Equal(s.T(), t.ResponseStatusCode, rec.Code)

@@ -31,7 +31,7 @@ func (app *Config) NewRouter() *echo.Echo {
 
 	e.GET("/v1/posts", app.BaseHandler.ReadPosts, app.AuthorizationMiddleware())
 	e.GET("/v1/posts/:id", app.BaseHandler.ReadPost, app.AuthorizationMiddleware())
-	e.POST("/v1/posts/:id", app.BaseHandler.CreatePost, app.AuthorizationMiddleware())
+	e.POST("/v1/posts", app.BaseHandler.CreatePost, app.AuthorizationMiddleware())
 	e.PATCH("/v1/posts/:id", app.BaseHandler.UpdatePost, app.AuthorizationMiddleware())
 	e.DELETE("/v1/posts/:id", app.BaseHandler.DeletePost, app.AuthorizationMiddleware())
 
