@@ -1,6 +1,6 @@
 basePath: /v1
 definitions:
-  handlers.CodeRequestBoby:
+  handlers.CodeRequestBody:
     properties:
       code:
         example: 123456
@@ -85,7 +85,7 @@ info:
   contact:
     name: Artem Kostenko
     url: https://github.com/aerosystems
-  description: Simple REST API for CRUD operations with Comments & Posts enities.
+  description: Simple REST API for CRUD operations with Comments & Posts entities.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -590,7 +590,7 @@ paths:
         name: code
         required: true
         schema:
-          $ref: '#/definitions/handlers.CodeRequestBoby'
+          $ref: '#/definitions/handlers.CodeRequestBody'
       produces:
       - application/json
       - application/xml
@@ -739,7 +739,7 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/handlers.Response'
-      summary: registration user by credentionals
+      summary: registration user by credentials
       tags:
       - auth
 swagger: "2.0"

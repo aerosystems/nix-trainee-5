@@ -22,7 +22,7 @@ import (
 // @Failure 401 {object} Response
 // @Router /users/logout [post]
 func (h *BaseHandler) Logout(c echo.Context) error {
-	// recieve AccessToken Claims from context middleware
+	// receive AccessToken Claims from context middleware
 	accessTokenClaims, ok := c.Get("user").(*models.AccessTokenClaims)
 	if !ok {
 		err := errors.New("token is untracked")

@@ -26,7 +26,7 @@ func NormalizeEmail(data string) string {
 
 	googleDomains := strings.Split(os.Getenv("GOOGLEMAIL_DOMAINS"), ",")
 
-	//checking google mail aliases
+	//checking Google Mail aliases
 	if Contains(googleDomains, domain) {
 		//removing all dots from username mail
 		username = strings.ReplaceAll(username, ".", "")
@@ -50,21 +50,21 @@ func ValidatePassword(password string) error {
 		return err
 	}
 	if !done {
-		return errors.New("password should contain atleast one lower case character")
+		return errors.New("password should contain at least one lower case character")
 	}
 	done, err = regexp.MatchString("([A-Z])+", password)
 	if err != nil {
 		return err
 	}
 	if !done {
-		return errors.New("password should contain atleast one upper case character")
+		return errors.New("password should contain at least one upper case character")
 	}
 	done, err = regexp.MatchString("([0-9])+", password)
 	if err != nil {
 		return err
 	}
 	if !done {
-		return errors.New("password should contain atleast one digit")
+		return errors.New("password should contain at least one digit")
 	}
 
 	done, err = regexp.MatchString("([!@#$%^&*.?-])+", password)
@@ -72,7 +72,7 @@ func ValidatePassword(password string) error {
 		return err
 	}
 	if !done {
-		return errors.New("password should contain atleast one special character")
+		return errors.New("password should contain at least one special character")
 	}
 	return nil
 }

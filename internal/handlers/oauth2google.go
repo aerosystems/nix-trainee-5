@@ -30,7 +30,7 @@ type UserInfo struct {
 
 // Oauth2GoogleLogin godoc
 // @Summary login user by Google OAuth2.0
-// @Description in success case - 301 Redirect into Google Authorization form with setting custom Cookies to protect against CSRF attacks 
+// @Description in success case - 301 Redirect into Google Authorization form with setting custom Cookies to protect against CSRF attacks
 // @Tags auth
 // @Accept  json
 // @Accept  xml
@@ -50,7 +50,7 @@ func (h *BaseHandler) Oauth2GoogleLogin(c echo.Context) error {
 	cookie.Value = oauthStateString
 	cookie.Path = "/"
 	cookie.HttpOnly = true
-	cookie.Secure = false	
+	cookie.Secure = false
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 
 	c.SetCookie(cookie)
@@ -102,7 +102,7 @@ func (h *BaseHandler) Oauth2GoogleCallback(c echo.Context) error {
 			return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 		}
 	}
-	message := "successfull Authorization with Google OAuth2.0"
+	message := "successfully Authorization with Google OAuth2.0"
 	// case #1: user not found in storage
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		// creating new active user
@@ -121,10 +121,10 @@ func (h *BaseHandler) Oauth2GoogleCallback(c echo.Context) error {
 		if err != nil {
 			return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 		}
-		message = "first successfull Authorization with Google OAuth2.0"
+		message = "first successfully Authorization with Google OAuth2.0"
 	}
 	// case #2: if user found in storage
-	// create pair of JWT tokens
+	// create a pair of JWT tokens
 	ts, err := h.tokensRepo.CreateToken(user.ID)
 	if err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))

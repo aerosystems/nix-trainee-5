@@ -20,7 +20,7 @@ type SuitePosts struct {
 	DB   *gorm.DB
 	mock sqlmock.Sqlmock
 
-	repository *postRepo
+	repository *PostRepo
 	post       models.Post
 }
 

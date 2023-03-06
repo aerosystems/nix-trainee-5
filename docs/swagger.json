@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Simple REST API for CRUD operations with Comments \u0026 Posts enities.",
+        "description": "Simple REST API for CRUD operations with Comments \u0026 Posts entities.",
         "title": "NIX Trainee 5-6-7-8 tasks",
         "contact": {
             "name": "Artem Kostenko",
@@ -804,7 +804,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.CodeRequestBoby"
+                            "$ref": "#/definitions/handlers.CodeRequestBody"
                         }
                     }
                 ],
@@ -977,7 +977,7 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "registration user by credentionals",
+                "summary": "registration user by credentials",
                 "parameters": [
                     {
                         "description": "raw request body",
@@ -1013,7 +1013,7 @@
         }
     },
     "definitions": {
-        "handlers.CodeRequestBoby": {
+        "handlers.CodeRequestBody": {
             "type": "object",
             "properties": {
                 "code": {

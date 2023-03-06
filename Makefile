@@ -13,8 +13,8 @@ down:
 ## post: stops post-service, removes docker image, builds service, and starts it
 post: build
 	@echo "Building post-service docker image..."
-	- docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev stop post-service
-	- docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev rm -f post-service
+	docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev stop post-service
+	docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev rm -f post-service
 	docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev up --build -d post-service
 	docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev start post-service
 	@echo "post-service built and started!"
@@ -39,6 +39,9 @@ doc:
 init:
 	@echo "Creating Database schema..."
 	docker exec -i mysql mysql -uroot -proot < migrations/init-001.sql
+	docker-compose -f ./docker-compose.dev.yml --env-file ./.env.dev restart post-service
+
+
 
 ## help: displays help
 help: Makefile

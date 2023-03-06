@@ -28,7 +28,7 @@ type RefreshTokenRequestBody struct {
 // @Failure 401 {object} Response
 // @Router /tokens/refresh [post]
 func (h *BaseHandler) RefreshToken(c echo.Context) error {
-	// recieve AccessToken Claims from context middleware
+	// receive AccessToken Claims from context middleware
 	accessTokenClaims, ok := c.Get("user").(*models.AccessTokenClaims)
 	if !ok {
 		err := errors.New("token is untracked")
@@ -64,11 +64,11 @@ func (h *BaseHandler) RefreshToken(c echo.Context) error {
 	if requestRefreshTokenUUID != cacheRefreshTokenUUID {
 		// drop request RefreshToken UUID from cache
 		_ = h.tokensRepo.DropCacheKey(requestRefreshTokenUUID)
-		err := errors.New("hmmm... refresh token in request body does not match refresh token which publish access token. is it scam?")
+		err := errors.New("hmmm... refresh token in request body does not match refresh token which publish access token")
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))
 	}
 
-	// create pair of JWT tokens
+	// create a pair of JWT tokens
 	ts, err := h.tokensRepo.CreateToken(refreshTokenClaims.UserID)
 	if err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))

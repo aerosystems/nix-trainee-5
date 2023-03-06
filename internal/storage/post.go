@@ -5,29 +5,29 @@ import (
 	"gorm.io/gorm"
 )
 
-type postRepo struct {
+type PostRepo struct {
 	db *gorm.DB
 }
 
-func NewPostRepo(db *gorm.DB) *postRepo {
-	return &postRepo{
+func NewPostRepo(db *gorm.DB) *PostRepo {
+	return &PostRepo{
 		db: db,
 	}
 }
 
-func (r *postRepo) FindAll() (*[]models.Post, error) {
+func (r *PostRepo) FindAll() (*[]models.Post, error) {
 	var posts []models.Post
 	r.db.Find(&posts)
 	return &posts, nil
 }
 
-func (r *postRepo) FindByID(ID int) (*models.Post, error) {
+func (r *PostRepo) FindByID(ID int) (*models.Post, error) {
 	var post models.Post
 	r.db.Find(&post, ID)
 	return &post, nil
 }
 
-func (r *postRepo) Create(post *models.Post) error {
+func (r *PostRepo) Create(post *models.Post) error {
 	result := r.db.Create(&post)
 	if result.Error != nil {
 		return result.Error
@@ -35,7 +35,7 @@ func (r *postRepo) Create(post *models.Post) error {
 	return nil
 }
 
-func (r *postRepo) Update(post *models.Post) error {
+func (r *PostRepo) Update(post *models.Post) error {
 	result := r.db.Save(&post)
 	if result.Error != nil {
 		return result.Error
@@ -43,7 +43,7 @@ func (r *postRepo) Update(post *models.Post) error {
 	return nil
 }
 
-func (r *postRepo) Delete(post *models.Post) error {
+func (r *PostRepo) Delete(post *models.Post) error {
 	result := r.db.Delete(&post)
 	if result.Error != nil {
 		return result.Error

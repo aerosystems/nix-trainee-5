@@ -5,29 +5,29 @@ import (
 	"gorm.io/gorm"
 )
 
-type commentRepo struct {
+type CommentRepo struct {
 	db *gorm.DB
 }
 
-func NewCommentRepo(db *gorm.DB) *commentRepo {
-	return &commentRepo{
+func NewCommentRepo(db *gorm.DB) *CommentRepo {
+	return &CommentRepo{
 		db: db,
 	}
 }
 
-func (r *commentRepo) FindAll() (*[]models.Comment, error) {
+func (r *CommentRepo) FindAll() (*[]models.Comment, error) {
 	var comments []models.Comment
 	r.db.Find(&comments)
 	return &comments, nil
 }
 
-func (r *commentRepo) FindByID(ID int) (*models.Comment, error) {
+func (r *CommentRepo) FindByID(ID int) (*models.Comment, error) {
 	var comment models.Comment
 	r.db.Find(&comment, ID)
 	return &comment, nil
 }
 
-func (r *commentRepo) Create(comment *models.Comment) error {
+func (r *CommentRepo) Create(comment *models.Comment) error {
 	result := r.db.Create(&comment)
 	if result.Error != nil {
 		return result.Error
@@ -35,7 +35,7 @@ func (r *commentRepo) Create(comment *models.Comment) error {
 	return nil
 }
 
-func (r *commentRepo) Update(comment *models.Comment) error {
+func (r *CommentRepo) Update(comment *models.Comment) error {
 	result := r.db.Save(&comment)
 	if result.Error != nil {
 		return result.Error
@@ -43,7 +43,7 @@ func (r *commentRepo) Update(comment *models.Comment) error {
 	return nil
 }
 
-func (r *commentRepo) Delete(comment *models.Comment) error {
+func (r *CommentRepo) Delete(comment *models.Comment) error {
 	result := r.db.Delete(&comment)
 	if result.Error != nil {
 		return result.Error

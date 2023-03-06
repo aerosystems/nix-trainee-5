@@ -1,4 +1,4 @@
-CREATE DATABASE `sandbox`;
+-- CREATE DATABASE `sandbox`;
 
 USE `sandbox`;
 

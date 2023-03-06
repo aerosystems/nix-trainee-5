@@ -810,7 +810,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.CodeRequestBoby"
+                            "$ref": "#/definitions/handlers.CodeRequestBody"
                         }
                     }
                 ],
@@ -983,7 +983,7 @@ const docTemplate = `{
                 "tags": [
                     "auth"
                 ],
-                "summary": "registration user by credentionals",
+                "summary": "registration user by credentials",
                 "parameters": [
                     {
                         "description": "raw request body",
@@ -1019,7 +1019,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "handlers.CodeRequestBoby": {
+        "handlers.CodeRequestBody": {
             "type": "object",
             "properties": {
                 "code": {
@@ -1144,7 +1144,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/v1",
 	Schemes:          []string{},
 	Title:            "NIX Trainee 5-6-7-8 tasks",
-	Description:      "Simple REST API for CRUD operations with Comments & Posts enities.",
+	Description:      "Simple REST API for CRUD operations with Comments & Posts entities.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

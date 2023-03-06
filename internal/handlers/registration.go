@@ -17,7 +17,7 @@ type RegistrationRequestBody struct {
 }
 
 // Registration godoc
-// @Summary registration user by credentionals
+// @Summary registration user by credentials
 // @Description Password should contain:
 // @Description - minimum of one small case letter
 // @Description - minimum of one upper case letter
@@ -84,6 +84,7 @@ func (h *BaseHandler) Registration(c echo.Context) error {
 				}
 			} else {
 				// extend expiration code and return previous active code
+				// TODO you should send Code by email/sms etc. & handle error sending
 				h.codeRepo.ExtendExpiration(code)
 				_ = code.Code
 			}
