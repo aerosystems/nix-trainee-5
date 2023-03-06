@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type CodeRequestBoby struct {
+type CodeRequestBody struct {
 	Code int `json:"code" xml:"code" example:"123456"`
 }
 
@@ -21,13 +21,13 @@ type CodeRequestBoby struct {
 // @Accept  xml
 // @Produce application/json
 // @Produce application/xml
-// @Param code body handlers.CodeRequestBoby true "raw request body"
+// @Param code body handlers.CodeRequestBody true "raw request body"
 // @Success 200 {object} Response
 // @Failure 400 {object} Response
 // @Failure 404 {object} Response
 // @Router /users/confirmation [post]
 func (h *BaseHandler) Confirmation(c echo.Context) error {
-	var requestPayload CodeRequestBoby
+	var requestPayload CodeRequestBody
 
 	if err := c.Bind(&requestPayload); err != nil {
 		return WriteResponse(c, http.StatusBadRequest, NewErrorPayload(err))

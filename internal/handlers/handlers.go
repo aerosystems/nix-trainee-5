@@ -31,15 +31,15 @@ func NewBaseHandler(googleOauthConfig *oauth2.Config,
 ) *BaseHandler {
 	return &BaseHandler{
 		googleOauthConfig: googleOauthConfig,
-		commentRepo: commentRepo,
-		postRepo:    postRepo,
-		userRepo:    userRepo,
-		codeRepo:    codeRepo,
-		tokensRepo:  tokensRepo,
+		commentRepo:       commentRepo,
+		postRepo:          postRepo,
+		userRepo:          userRepo,
+		codeRepo:          codeRepo,
+		tokensRepo:        tokensRepo,
 	}
 }
 
-// WriteResponse takes a response status code and arbitrary data and writes a xml/json response to the client in depends of Header Accept
+// WriteResponse takes a response status code and arbitrary data and writes a xml/json response to the client in depends on Header Accept
 func WriteResponse(c echo.Context, statusCode int, payload any) error {
 	acceptHeaders := c.Request().Header["Accept"]
 	if Contains(acceptHeaders, "application/xml") {

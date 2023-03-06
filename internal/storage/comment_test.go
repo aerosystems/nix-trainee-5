@@ -20,7 +20,7 @@ type SuiteComments struct {
 	DB   *gorm.DB
 	mock sqlmock.Sqlmock
 
-	repository *commentRepo
+	repository *CommentRepo
 	comment    models.Comment
 }
 

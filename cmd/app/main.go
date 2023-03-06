@@ -24,7 +24,7 @@ type Config struct {
 
 // @title NIX Trainee 5-6-7-8 tasks
 // @version 1.0
-// @description Simple REST API for CRUD operations with Comments & Posts enities.
+// @description Simple REST API for CRUD operations with Comments & Posts entities.
 
 // @contact.name Artem Kostenko
 // @contact.url https://github.com/aerosystems
